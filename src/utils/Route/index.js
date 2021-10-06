@@ -59,7 +59,7 @@ const Routes = {
   ScanChipQR: 'ScanChipQR',
   ParkingAreaDetail: 'ParkingAreaDetail',
   SavedVehicle: 'SavedVehicle',
-  MapDashboard: 'MapDashboard',
+  HealthDashboard: 'HealthDashboard',
   PersonalHealthStack: 'PersonalHealthStack',
   PersonalHealthMapDrawer: 'PersonalHealthMapDrawer',
   BookingSuccess: 'BookingSuccess',

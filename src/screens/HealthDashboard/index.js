@@ -10,7 +10,7 @@ import { useBlockBackAndroid } from '../../hooks/Common';
 
 import styles from './styles';
 
-const MapDashboard = memo(({ route }) => {
+const HealthDashboard = memo(({ route }) => {
   useBlockBackAndroid();
 
   return (
@@ -20,4 +20,4 @@ const MapDashboard = memo(({ route }) => {
   );
 });
 
-export default MapDashboard;
+export default HealthDashboard;

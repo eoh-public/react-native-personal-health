@@ -8,7 +8,7 @@ import { Colors } from '../configs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import MapDashboard from '../screens/MapDashboard';
+import HealthDashboard from '../screens/HealthDashboard';
 import PersonalHealthDrawer from '../screens/PersonalHealthDrawer';
 
 import utils from './utils';
@@ -25,8 +25,8 @@ const MapDrawer = () => {
       drawerType={'front'}
     >
       <Drawer.Screen
-        name={Routes.MapDashboard}
-        component={MapDashboard}
+        name={Routes.HealthDashboard}
+        component={HealthDashboard}
         options={{ headerShown: false }}
       />
     </Drawer.Navigator>
