@@ -13,6 +13,9 @@ export default StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  buttonLeft: {
+    marginTop: 50,
+  },
   viewBottom: {
     position: 'absolute',
     alignItems: 'flex-end',
