@@ -4,5 +4,17 @@
   "report_logs": "Report Logs",
   "reminder": "reminder",
   "system_setting": "System Setting",
-  "exit_health_tech": "Exit Health Tech"
+  "exit_health_tech": "Exit Health Tech",
+  "health_reports": "Health reports",
+  "share_all": "Share All",
+  "blood_glucose": "Blood Glucose",
+  "spO2": "SpO2",
+  "heart_rate": "Heart Rate",
+  "blood_pressure": "Blood Pressure",
+  "temperature": "Temperature",
+  "normal": "Normal",
+  "high": "High",
+  "low": "Low",
+  "no_data": "No Data",
+  "feature_under_development": "Feature is under development"
 }
