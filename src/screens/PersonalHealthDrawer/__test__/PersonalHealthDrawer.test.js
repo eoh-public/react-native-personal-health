@@ -1,111 +1,59 @@
 import React from 'react';
-import renderer, { act } from 'react-test-renderer';
-import { TESTID } from '../../../configs/Constants';
+import { act, create } from 'react-test-renderer';
+import { TouchableOpacity } from 'react-native';
 import PersonalHealthDrawer from '../index';
-import axios from 'axios';
-import { useIsFocused } from '@react-navigation/native';
-import { API } from '../../../configs';
+import RowDrawer from '../components/Drawer/RowDrawer';
 import { PHContext } from '../../../context';
-import { mockSPStore } from '../../../context/mockStore';
+import { mockPHStore } from '../../../context/mockStore';
+import Routes from '../../../utils/Route';
 
-jest.mock('axios');
-const mockNavigateReact = jest.fn();
+jest.mock('react', () => {
+  return {
+    ...jest.requireActual('react'),
+    memo: (x) => x,
+  };
+});
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useState: jest.fn(),
-}));
-
+const mockNavigate = jest.fn();
+const mockReplace = jest.fn();
 jest.mock('@react-navigation/native', () => {
   return {
     ...jest.requireActual('@react-navigation/native'),
-    useIsFocused: jest.fn(),
     useNavigation: () => ({
-      navigate: mockNavigateReact,
+      navigate: mockNavigate,
+      replace: mockReplace,
     }),
   };
 });
 
-const mockSetAction = jest.fn();
-
-const wrapComponent = (store) => (
-  <PHContext.Provider value={{ stateData: store, setAction: mockSetAction }}>
+const wrapComponent = () => (
+  <PHContext.Provider value={mockPHStore({})}>
     <PersonalHealthDrawer />
   </PHContext.Provider>
 );
 
-const setState = jest.fn();
-describe('Test Smart Parking Drawer', () => {
+describe('Test Personal Health Drawer', () => {
   let tree;
-  let store;
-  afterEach(() => {
-    useIsFocused.mockClear();
-    axios.get.mockClear();
-    setState.mockClear();
-  });
-  beforeEach(() => {
-    store = mockSPStore({
-      notification: {
-        newSavedParking: 1,
-      },
-      auth: {
-        account: {
-          user: {
-            name: 'Name',
-            email: 'name@gmail.com',
-            avatar: 'avatar',
-          },
-        },
-      },
-    });
-  });
-  test('render Smart Parking Drawer', async () => {
-    useIsFocused.mockImplementation(() => true);
-    const response = {
-      status: 200,
-      data: {
-        incomplete: true,
-      },
-    };
-
-    axios.get.mockImplementation(async () => {
-      return response;
-    });
-    await act(async () => {
-      tree = await renderer.create(wrapComponent(store));
+  test('Test render', () => {
+    act(() => {
+      tree = create(wrapComponent());
     });
     const instance = tree.root;
-    const items = instance.findAll(
-      (el) => el.props.testID === TESTID.ROW_ITEM_PersonalHealth_DRAWER
-    );
-    expect(items).not.toBeUndefined();
-    expect(axios.get).toHaveBeenCalledWith(API.CAR.CHECK_CARS_INFO(), {});
-    expect(mockSetAction).toBeCalledTimes(1);
-  });
+    const rows = instance.findAllByType(RowDrawer);
+    expect(rows).toHaveLength(7);
 
-  test('render Smart Parking Drawer useIsFocused false', async () => {
-    useIsFocused.mockImplementation(() => false);
-    await act(async () => {
-      tree = await renderer.create(wrapComponent(store));
+    const rowButtons = instance.findAllByType(TouchableOpacity);
+    act(() => {
+      rowButtons[6].props.onPress();
     });
-    expect(axios.get).not.toHaveBeenCalledWith(API.CAR.CHECK_CARS_INFO(), {});
-  });
+    expect(mockReplace).toBeCalledWith(Routes.Main);
 
-  test('render Smart Parking Drawer get api fail', async () => {
-    useIsFocused.mockImplementation(() => true);
-    const response = {
-      status: 500,
-      data: {
-        incomplete: true,
-      },
-    };
+    mockReplace.mockClear();
 
-    axios.get.mockImplementation(async () => {
-      return response;
+    act(() => {
+      rowButtons[0].props.onPress();
     });
-    await act(async () => {
-      tree = await renderer.create(wrapComponent(store));
-    });
-    expect(setState).toBeCalledTimes(0);
+    expect(mockNavigate).not.toBeCalled();
+    expect(mockReplace).not.toBeCalled();
   });
 });

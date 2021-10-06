@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import Routes from '../utils/Route';
-import { t } from 'i18n-js';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { Colors } from '../configs';
 

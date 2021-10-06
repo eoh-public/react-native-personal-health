@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { Icon } from '@ant-design/react-native';
-import { TESTID } from '../../configs/Constants';
 
 import Text from '../Text';
 import { Images, Colors } from '../../configs';
@@ -17,18 +16,15 @@ const HeaderDrawer = memo(() => {
       ? user.email
       : '';
 
-  const phoneNumber = user ? user.phone_number : '';
+  const phoneNumber =
+    user && user.phone_number !== null ? user.phone_number : '';
   return (
-    <View style={[styles.row, styles.logoWrap]}>
+    <View style={styles.logoWrap}>
       <Image source={Images.logo} style={styles.logo} />
 
       <View style={styles.avatarBackground}>
-        {user.avatar ? (
-          <FastImage
-            source={{ uri: user.avatar }}
-            style={styles.avatar}
-            testID={TESTID.FAST_IMAGE_USER_AVATAR}
-          />
+        {user?.avatar ? (
+          <FastImage source={{ uri: user.avatar }} style={styles.avatar} />
         ) : (
           <View style={styles.avatar}>
             <Icon name={'user'} size={27} />
@@ -50,12 +46,9 @@ const HeaderDrawer = memo(() => {
 export default HeaderDrawer;
 
 const styles = StyleSheet.create({
-  row: {
+  logoWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  logoWrap: {
     paddingTop: 32,
     paddingLeft: 28,
     paddingRight: 23,
@@ -85,7 +78,6 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginLeft: 15,
-    justifyContent: 'flex-start',
     flex: 1,
   },
   fullName: {

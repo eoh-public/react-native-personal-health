@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { memo, useCallback } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Text from '../../commons/Text';
