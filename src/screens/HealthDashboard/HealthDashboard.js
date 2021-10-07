@@ -9,66 +9,66 @@ import RowTitleButton from '../../commons/RowTitleButton';
 import ReportItem from './ReportItem';
 import styles from './styles/healthDashboardStyles';
 
-const healthData = [
-  {
-    title: t('heart_rate'),
-    status: 'high',
-    value: 140,
-    unit: 'BPM',
-  },
-  {
-    title: t('blood_pressure'),
-    status: 'low',
-    value: 140,
-    unit: 'mg/DL',
-  },
-  {
-    title: t('blood_glucose'),
-    status: 'normal',
-    value: 140,
-    unit: 'mm/Hg',
-  },
-  {
-    title: t('spO2'),
-    status: 'normal',
-    value: 140,
-    unit: '%',
-  },
-  {
-    title: t('temperature'),
-    status: 'high',
-    value: 140,
-    unit: '°C',
-  },
-];
-
-const nullData = [
-  {
-    title: t('heart_rate'),
-    unit: 'BPM',
-  },
-  {
-    title: t('blood_pressure'),
-    unit: 'mg/DL',
-  },
-  {
-    title: t('blood_glucose'),
-    unit: 'mm/Hg',
-  },
-  {
-    title: t('spO2'),
-    unit: '%',
-  },
-  {
-    title: t('temperature'),
-    unit: '°C',
-  },
-];
-
 const HealthDashboard = memo(({ route }) => {
   const navigation = useNavigation();
 
   useBlockBackAndroid();
+
+  const healthData = [
+    {
+      title: t('heart_rate'),
+      status: 'high',
+      value: 140,
+      unit: 'BPM',
+    },
+    {
+      title: t('blood_pressure'),
+      status: 'low',
+      value: 140,
+      unit: 'mg/DL',
+    },
+    {
+      title: t('blood_glucose'),
+      status: 'normal',
+      value: 140,
+      unit: 'mm/Hg',
+    },
+    {
+      title: t('spO2'),
+      status: 'normal',
+      value: 140,
+      unit: '%',
+    },
+    {
+      title: t('temperature'),
+      status: 'high',
+      value: 140,
+      unit: '°C',
+    },
+  ];
+  
+  const nullData = [
+    {
+      title: t('heart_rate'),
+      unit: 'BPM',
+    },
+    {
+      title: t('blood_pressure'),
+      unit: 'mg/DL',
+    },
+    {
+      title: t('blood_glucose'),
+      unit: 'mm/Hg',
+    },
+    {
+      title: t('spO2'),
+      unit: '%',
+    },
+    {
+      title: t('temperature'),
+      unit: '°C',
+    },
+  ];
 
   const onPressMenu = useCallback(() => {
     navigation.toggleDrawer();
