@@ -22,25 +22,9 @@ export const mockDataStore: ContextData = {
     loading: false,
     exitApp: false,
   },
-
-  booking: {
-    cancelBooking: false,
-    violationsData: null,
-  },
-
-  notification: {
-    newNotification: false,
-    newSavedParking: false,
-    incompletedCarsInfo: false,
-    notificationData: null,
-  },
-
-  maps: {
-    parkingsNearMe: [],
-  },
 };
 
-export const mockSPStore = (data: ContextData): ContextData => {
+export const mockPHStore = (data: ContextData): ContextData => {
   return {
     auth: {
       account: {
@@ -51,18 +35,6 @@ export const mockSPStore = (data: ContextData): ContextData => {
     app: {
       ...mockDataStore.app,
       ...data.app,
-    },
-    booking: {
-      ...mockDataStore.booking,
-      ...data.booking,
-    },
-    notification: {
-      ...mockDataStore.notification,
-      ...data.notification,
-    },
-    maps: {
-      ...mockDataStore.maps,
-      ...data.maps,
     },
   };
 };

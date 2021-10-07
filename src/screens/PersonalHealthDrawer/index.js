@@ -1,104 +1,54 @@
-import React, {
-  memo,
-  useMemo,
-  useEffect,
-  useCallback,
-  useContext,
-} from 'react';
+import React, { memo, useMemo } from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
 import { Icon } from '@ant-design/react-native';
 import { t } from 'i18n-js';
 
-import { Colors, API } from '../../configs';
-import { getStatusBarHeight, TESTID } from '../../configs/Constants';
-import Row from './components/Drawer/Row';
+import { Colors } from '../../configs';
+import { getStatusBarHeight } from '../../configs/Constants';
+import RowDrawer from './components/Drawer/RowDrawer';
 import HeaderDrawer from '../../commons/HeaderDrawer';
 import { VersionText } from '../../commons/VersionText';
 import Routes from '../../utils/Route';
-import { axiosGet } from '../../utils/Apis/axios';
 
-import Calendar from '../../../assets/images/PersonalHealth/calendar.svg';
-import SvgCarDrawer from '../../../assets/images/PersonalHealth/car_drawer.svg';
-import BookMarkGray from '../../../assets/images/PersonalHealth/bookmark-gray.svg';
-import CreditCard from '../../../assets/images/PersonalHealth/credit-card.svg';
-import Tags from '../../../assets/images/PersonalHealth/tags.svg';
-import Phone from '../../../assets/images/PersonalHealth/phone.svg';
-import TermAndCondition from '../../../assets/images/PersonalHealth/term-condition.svg';
-import { PHContext, usePHSelector } from '../../context';
+import Account from '../../../assets/images/Drawer/account.svg';
+import Hub from '../../../assets/images/Drawer/hub.svg';
+import Report from '../../../assets/images/Drawer/report.svg';
+import Reminder from '../../../assets/images/Drawer/reminder.svg';
+import Setting from '../../../assets/images/Drawer/setting.svg';
+import TermAndConditions from '../../../assets/images/Drawer/term-conditions.svg';
 
 const PersonalHealthDrawer = memo(() => {
-  const isFocused = useIsFocused();
-  const { setAction } = useContext(PHContext);
-  const { newSavedParking, incompletedCarsInfo } = usePHSelector(
-    (state) => state.notification
-  );
-
-  const checkCarsInformation = useCallback(async () => {
-    const { data, success } = await axiosGet(API.CAR.CHECK_CARS_INFO());
-    if (success) {
-      setAction('SET_INCOMPLETED_CARS_INFO', data.incomplete);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (isFocused) {
-      checkCarsInformation();
-    }
-  }, [checkCarsInformation, isFocused]);
-
   const data = useMemo(
     () => [
       {
         id: '0',
-        route: Routes.MyBookingList,
-        leftImage: <Calendar />,
-        name: t('my_bookings'),
+        route: null,
+        leftImage: <Account />,
+        name: t('account_setting'),
       },
       {
         id: '1',
-        route: Routes.VehicleManagement,
-        leftImage: <SvgCarDrawer />,
-        name: t('vehicle_management'),
-        vehicle: incompletedCarsInfo,
+        route: null,
+        leftImage: <Hub />,
+        name: t('health_devices'),
       },
       {
         id: '2',
-        route: Routes.PersonalHealthSavedParking,
-        leftImage: <BookMarkGray />,
-        name: t('saved_parking_areas'),
-        saved: newSavedParking,
+        route: null,
+        leftImage: <Report />,
+        name: t('report_logs'),
       },
       {
         id: '3',
-        route: Routes.PersonalHealthPayment,
-        leftImage: <CreditCard />,
-        name: t('payment_methods'),
+        route: null,
+        leftImage: <Reminder />,
+        name: t('reminder'),
       },
       {
         id: '4',
         route: null,
-        leftImage: <Tags />,
-        name: t('violations_and_tickets'),
-      },
-    ],
-    [incompletedCarsInfo, newSavedParking]
-  );
-
-  const dataContact = useMemo(
-    () => [
-      {
-        id: '0',
-        route: Routes.ContactInformation,
-        leftImage: <Phone />,
-        name: t('contact_infomation'),
-      },
-      {
-        id: '1',
-        route: Routes.TermAndPolicies,
-        leftImage: <TermAndCondition />,
-        name: t('terms_and_policies'),
+        leftImage: <Setting />,
+        name: t('system_setting'),
       },
     ],
     []
@@ -106,71 +56,49 @@ const PersonalHealthDrawer = memo(() => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView} bounces={false}>
+      <ScrollView bounces={false}>
         <HeaderDrawer />
         <View style={styles.wrapMenu}>
-          <View>
-            {data.map((item) => (
-              <Row
-                key={item.id}
-                {...item}
-                testID={TESTID.ROW_ITEM_PersonalHealth_DRAWER}
-              />
-            ))}
-
-            <View style={styles.groupBorderTop}>
-              {dataContact.map((item) => (
-                <Row key={item.id} {...item} />
-              ))}
-            </View>
-            <View style={styles.exitView}>
-              <Row
-                route={Routes.Main}
-                leftImage={
-                  <Icon name={'export'} size={24} color={Colors.Gray8} />
-                }
-                name={t('exit_smart_parking')}
-                testID={TESTID.ROW_EXIT_PersonalHealth_DRAWER}
-              />
-            </View>
-          </View>
-          <VersionText />
+          {data.map((item) => (
+            <RowDrawer key={item.id} {...item} />
+          ))}
         </View>
       </ScrollView>
+      <View style={styles.groupBottom}>
+        <RowDrawer
+          route={null}
+          leftImage={<TermAndConditions />}
+          name={t('terms_and_conditions')}
+          borderTop
+        />
+        <RowDrawer
+          route={Routes.Main}
+          leftImage={<Icon name={'export'} size={24} color={Colors.Red6} />}
+          name={t('exit_health_tech')}
+          textColor={Colors.Red6}
+          borderTop
+        />
+        <VersionText />
+      </View>
     </View>
   );
 });
 export default PersonalHealthDrawer;
 
 const styles = StyleSheet.create({
-  wrap: {
-    flex: 1,
-    backgroundColor: Colors.White,
-  },
   container: {
     flex: 1,
     backgroundColor: Colors.White,
     paddingTop: getStatusBarHeight(true),
   },
-  scrollView: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
   wrapMenu: {
-    flex: 1,
-    justifyContent: 'space-between',
     paddingHorizontal: 28,
   },
-  exitView: {
-    marginTop: 24,
-    paddingTop: 12,
-    borderTopColor: Colors.Gray4,
-    borderTopWidth: 1,
-  },
-  groupBorderTop: {
-    marginTop: 24,
-    paddingTop: 12,
-    borderTopColor: Colors.Gray4,
-    borderTopWidth: 1,
+  groupBottom: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    marginHorizontal: 28,
   },
 });
