@@ -1,4 +1,4 @@
-const SPDefaultConfig = {
+const PHDefaultConfig = {
   apiRoot: 'https://backend.eoh.io/api',
   googleMapApiKey: 'AIzaSyCF1Q-WFXCnfAHhOeXRF9WK7eT-TtxO9ss',
   stripePublishKey:
@@ -8,23 +8,23 @@ const SPDefaultConfig = {
   maxSeconds: 900,
 };
 
-export class SPConfig {
-  static apiRoot = SPDefaultConfig.apiRoot;
-  static googleMapApiKey = SPDefaultConfig.googleMapApiKey;
-  static stripePublishKey = SPDefaultConfig.stripePublishKey;
-  static pusherAppKey = SPDefaultConfig.pusherAppKey;
-  static pusherAppCluster = SPDefaultConfig.pusherAppCluster;
-  static maxSeconds = SPDefaultConfig.maxSeconds;
+export class PHConfig {
+  static apiRoot = PHDefaultConfig.apiRoot;
+  static googleMapApiKey = PHDefaultConfig.googleMapApiKey;
+  static stripePublishKey = PHDefaultConfig.stripePublishKey;
+  static pusherAppKey = PHDefaultConfig.pusherAppKey;
+  static pusherAppCluster = PHDefaultConfig.pusherAppCluster;
+  static maxSeconds = PHDefaultConfig.maxSeconds;
 }
 
 export const initPHConfig = (config) => {
-  SPConfig.apiRoot = config.apiRoot ?? SPDefaultConfig.apiRoot;
-  SPConfig.googleMapApiKey =
-    config.googleMapApiKey ?? SPDefaultConfig.googleMapApiKey;
-  SPConfig.stripePublishKey =
-    config.stripePublishKey ?? SPDefaultConfig.stripePublishKey;
-  SPConfig.pusherAppKey = config.pusherAppKey ?? SPDefaultConfig.pusherAppKey;
-  SPConfig.pusherAppCluster =
-    config.pusherAppCluster ?? SPDefaultConfig.pusherAppCluster;
-  SPConfig.maxSeconds = config.maxSeconds ?? SPDefaultConfig.maxSeconds;
+  PHConfig.apiRoot = config.apiRoot ?? PHDefaultConfig.apiRoot;
+  PHConfig.googleMapApiKey =
+    config.googleMapApiKey ?? PHDefaultConfig.googleMapApiKey;
+  PHConfig.stripePublishKey =
+    config.stripePublishKey ?? PHDefaultConfig.stripePublishKey;
+  PHConfig.pusherAppKey = config.pusherAppKey ?? PHDefaultConfig.pusherAppKey;
+  PHConfig.pusherAppCluster =
+    config.pusherAppCluster ?? PHDefaultConfig.pusherAppCluster;
+  PHConfig.maxSeconds = config.maxSeconds ?? PHDefaultConfig.maxSeconds;
 };

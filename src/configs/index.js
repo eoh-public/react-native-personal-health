@@ -1,4 +1,4 @@
-import { SPConfig, initPHConfig } from './PHConfig';
+import { PHConfig, initPHConfig } from './PHConfig';
 import API from './API';
 import { Colors } from './Colors';
 import { Constants } from './Constants';
@@ -18,6 +18,6 @@ export {
   Images,
   Device,
   Fonts,
-  SPConfig,
+  PHConfig,
   initPHConfig,
 };
