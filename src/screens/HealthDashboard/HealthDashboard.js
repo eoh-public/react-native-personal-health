@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useCallback } from 'react';
+import React, { memo, useEffect, useState, useMemo, useCallback } from 'react';
 import { TouchableOpacity, View, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { IconOutline } from '@ant-design/icons-react-native';
@@ -7,35 +7,39 @@ import { axiosGet } from '../../utils/Apis/axios';
 
 import { useBlockBackAndroid } from '../../hooks/Common';
 import RowTitleButton from '../../commons/RowTitleButton';
-import ReportItem from './ReportItem';
+import HealthConfigItem from './HealthConfigItem';
 import styles from './styles/healthDashboardStyles';
 import { API } from '../../configs';
 
 const HealthDashboard = memo(({ route }) => {
   const navigation = useNavigation();
   useBlockBackAndroid();
-  const initData = [
-    {
-      name: t('heart_rate'),
-      unit: 'BPM',
-    },
-    {
-      name: t('blood_pressure'),
-      unit: 'mg/DL',
-    },
-    {
-      name: t('blood_glucose'),
-      unit: 'mm/Hg',
-    },
-    {
-      name: t('spO2'),
-      unit: '%',
-    },
-    {
-      name: t('temperature'),
-      unit: '°C',
-    },
-  ];
+  const initData = useMemo(
+    () => [
+      {
+        name: t('heart_rate'),
+        unit: 'BPM',
+      },
+      {
+        name: t('blood_pressure'),
+        unit: 'mg/DL',
+      },
+      {
+        name: t('blood_glucose'),
+        unit: 'mm/Hg',
+      },
+      {
+        name: t('spO2'),
+        unit: '%',
+      },
+      {
+        name: t('temperature'),
+        unit: '°C',
+      },
+    ],
+    []
+  );
+
   const [configs, setConfigs] = useState(initData);
 
   const fetchConfigs = useCallback(async () => {
@@ -46,12 +50,11 @@ const HealthDashboard = memo(({ route }) => {
       });
       setConfigs(data.concat(nullData));
     }
-  }, [setConfigs]);
+  }, [setConfigs, initData]);
 
   useEffect(() => {
     fetchConfigs();
   }, [fetchConfigs]);
-  
 
   const onPressMenu = useCallback(() => {
     navigation.toggleDrawer();
@@ -87,7 +90,7 @@ const HealthDashboard = memo(({ route }) => {
         />
         <View style={styles.boxReports}>
           {configs.map((item, index) => (
-            <ReportItem key={index} item={item} />
+            <HealthConfigItem key={index} item={item} />
           ))}
         </View>
       </ScrollView>

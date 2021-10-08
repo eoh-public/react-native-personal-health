@@ -1,14 +1,14 @@
 import { StyleSheet } from 'react-native';
 import { Colors, Constants } from '../../../configs';
 
-const marin = 16;
-const widthItem = (Constants.width - marin * 2 - marin) / 2;
+const margin = 16;
+const widthItem = (Constants.width - margin * 2 - margin) / 2;
 const heightItem = (widthItem / 164) * 140;
 
 export default StyleSheet.create({
   container: {
     padding: 16,
-    marginBottom: 16,
+    marginBottom: margin,
     width: widthItem,
     height: heightItem,
     backgroundColor: Colors.White,

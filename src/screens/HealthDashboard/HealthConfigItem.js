@@ -4,7 +4,7 @@ import { IconOutline } from '@ant-design/icons-react-native';
 import { t } from 'i18n-js';
 
 import Text from '../../commons/Text';
-import styles from './styles/reportItemStyles';
+import styles from './styles/healthConfigItemStyles';
 import { Colors } from '../../configs';
 
 const TextColor = {
