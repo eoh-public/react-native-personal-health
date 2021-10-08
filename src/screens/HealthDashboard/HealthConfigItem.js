@@ -35,7 +35,7 @@ const HealthConfigItem = memo(({ item }) => {
             </TouchableOpacity>
           </View>
           <Text type="Body" color={textColor}>
-            {item.status ? t(`${item.status}`) : t('no_data')}
+            {item.text ? t(`${item.text}`) : t('no_data')}
           </Text>
         </View>
         <View style={styles.rowBottom}>
