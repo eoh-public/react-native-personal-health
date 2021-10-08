@@ -19,7 +19,7 @@ const BorderColor = {
   low: Colors.Purple6,
 };
 
-const ReportItem = memo(({ item }) => {
+const HealthConfigItem = memo(({ item }) => {
   const textColor = TextColor[item.text] || Colors.Gray7;
   const borderColor = BorderColor[item.text] || Colors.Gray4;
   return (
@@ -51,4 +51,4 @@ const ReportItem = memo(({ item }) => {
   );
 });
 
-export default ReportItem;
+export default HealthConfigItem;
