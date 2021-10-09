@@ -44,13 +44,8 @@ const HealthDashboard = memo(({ route }) => {
 
   const fetchConfigs = useCallback(async () => {
     const { success, data } = await axiosGet(API.PERSONAL_HEALTH.CONFIGS());
-    if (success) {
-      const nullData = initData.filter((i) => {
-        return !data.find((j) => j.name === i.name);
-      });
-      setConfigs(data.concat(nullData));
-    }
-  }, [setConfigs, initData]);
+    success && setConfigs(data);
+  }, [setConfigs]);
 
   useEffect(() => {
     fetchConfigs();
