@@ -7,7 +7,7 @@ import { Colors } from '../configs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HealthDashboard from '../screens/HealthDashboard';
+import HealthDashboard from '../screens/HealthDashboard/HealthDashboard';
 import PersonalHealthDrawer from '../screens/PersonalHealthDrawer';
 
 import utils from './utils';
