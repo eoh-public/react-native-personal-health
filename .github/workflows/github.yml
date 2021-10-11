@@ -22,10 +22,10 @@ jobs:
       - run: npm ci
       # - run: npm test
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Coveralls
+      #   uses: coverallsapp/github-action@master
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: NPM Publish
         uses: JS-DevTools/npm-publish@v1
