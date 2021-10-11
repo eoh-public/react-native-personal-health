@@ -6,7 +6,7 @@ on:
     branches:
       - master
 
-name: Test Publish
+name: Test publish
 
 jobs:
 
