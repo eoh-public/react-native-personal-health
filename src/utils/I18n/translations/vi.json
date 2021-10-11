@@ -1,0 +1,20 @@
+{
+  "account_setting": "Cài đặt tài khoản",
+  "health_devices": "Thiết bị",
+  "report_logs": "Báo cáo",
+  "reminder": "Nhắc nhở",
+  "system_setting": "Cài đặt hệ thống",
+  "exit_health_tech": "Thoát Heal Tech",
+  "health_reports": "Báo cáo sức khỏe",
+  "share_all": "Chia sẻ tất cả",
+  "blood_glucose": "Đường Máu",
+  "spO2": "spO2",
+  "heart_rate": "Nhịp Tim",
+  "blood_pressure": "Huyết Áp",
+  "temperature": "Nhiệt Độ",
+  "normal": "Bình thường",
+  "high": "Cao",
+  "low": "Thấp",
+  "no_data": "Không có dữ liệu",
+  "feature_under_development": "Tính năng này đang được phát triển"
+}
