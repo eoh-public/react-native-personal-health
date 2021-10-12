@@ -1,31 +1,3 @@
-# on:
-#   push:
-#     branches:
-#       - master
-#   pull_request:
-#     branches:
-#       - master
-
-# name: Test Coveralls
-
-# jobs:
-#   build:
-#     name: Build
-#     # runs-on: self-hosted
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: actions/setup-node@v1
-#         with:
-#           node-version: 14
-
-#       - run: npm ci
-
-#       - name: NPM Publish
-#         uses: JS-DevTools/npm-publish@v1
-#         with:
-#           token: ${{ secrets.NPM_TOKEN }}
-
 name: Test publish
 on:
   push:
@@ -42,9 +14,8 @@ jobs:
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm install
       - run: git config --global user.email "bang@eoh.io"
       - run: git config --global user.name "Bang Dao"
       - run: npm publish
