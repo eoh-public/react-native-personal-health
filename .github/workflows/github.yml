@@ -45,8 +45,8 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm install
-      - run: git config --global user.email "hinh.dv@eoh.io"
-      - run: git config --global user.name "hinh-eoh"
+      - run: git config --global user.email "bang@eoh.io"
+      - run: git config --global user.name "Bang Dao"
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
