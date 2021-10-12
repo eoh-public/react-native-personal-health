@@ -6,7 +6,7 @@ on:
     branches:
       - master
 
-name: Test publish
+name: Test Coveralls
 
 jobs:
   build:
@@ -17,27 +17,12 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '14.x'
+          node-version: 14
 
       - run: npm ci
-      - run: git fetch origin master
-      - run: apt list openssh-client -a
-      - run: eval $(ssh-agent -s)
-      - run: chmod 600 $GITHUB_DEPLOY_KEY
-      - run: ssh-add $GITHUB_DEPLOY_KEY
-      - run: echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > ~/.npmrc
-      - run: git remote add github git@github.com:eoh-public/react-native-personal-health.git || echo "Good"
-      - run: ssh -o StrictHostKeyChecking=no git@github.com || echo "Good"
-      - run: git push -f github origin/master:master
-      - run: npm publish
-      # - run: npm test
 
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: NPM Publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
 
-      # - name: NPM Publish
-      #   uses: JS-DevTools/npm-publish@v1
-      #   with:
-      #     token: ${{ secrets.NPM_TOKEN }}
