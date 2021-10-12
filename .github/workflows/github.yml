@@ -18,6 +18,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: git config --global user.email "bang@eoh.io"
       - run: git config --global user.name "Bang Dao"
-      - run: npm publish
+      - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
