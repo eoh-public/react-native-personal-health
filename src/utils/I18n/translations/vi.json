@@ -16,5 +16,12 @@
   "high": "Cao",
   "low": "Thấp",
   "no_data": "Không có dữ liệu",
-  "feature_under_development": "Tính năng này đang được phát triển"
+  "feature_under_development": "Tính năng này đang được phát triển",
+  "general": "Tổng quan",
+  "health": "Sức khỏe",
+  "general_information": "Thông tin chung",
+  "allergies": "Dị ứng",
+  "chronic_health": "Sức khỏe mãn tính",
+  "immunization_history": "Lịch sử tiêm chủng",
+  "family_history": "Tiền sử gia đình"
 }

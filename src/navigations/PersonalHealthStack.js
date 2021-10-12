@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform } from 'react-native';
 import Routes from '../utils/Route';
-import { IconOutline } from '@ant-design/icons-react-native';
 import { Colors } from '../configs';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -9,12 +8,26 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HealthDashboard from '../screens/HealthDashboard/HealthDashboard';
 import PersonalHealthDrawer from '../screens/PersonalHealthDrawer';
+import AccountSetting from '../screens/AccountSetting/index';
 
 import utils from './utils';
 
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
+
+const screenOptionsAccountSetting = {
+  headerTintColor: '#000',
+  headerBackTitle: true,
+  headerStyle: {
+    elevation: 0,
+    shadowRadius: 0,
+    shadowOffset: {
+      height: 0,
+    },
+    backgroundColor: Colors.Gray2,
+  },
+};
 
 const MapDrawer = () => {
   return (
@@ -39,14 +52,6 @@ export const PersonalHealthStack = memo(() => {
       screenOptions={{
         ...utils.screenOptions,
         headerTitleAlign: 'center',
-        headerBackImage: () => (
-          <IconOutline
-            name="left"
-            size={27}
-            color={Colors.Black}
-            style={styles.icLeft}
-          />
-        ),
         headerStyle: {
           backgroundColor: Colors.White,
           elevation: 0,
@@ -54,6 +59,7 @@ export const PersonalHealthStack = memo(() => {
           borderColor: Colors.Gray4,
         },
         headerBackTitle: true,
+        ...screenOptionsAccountSetting,
       }}
     >
       <Stack.Screen
@@ -61,12 +67,13 @@ export const PersonalHealthStack = memo(() => {
         component={MapDrawer}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name={Routes.AccountSetting}
+        component={AccountSetting}
+        options={{
+          title: '',
+        }}
+      />
     </Stack.Navigator>
   );
-});
-
-const styles = StyleSheet.create({
-  icLeft: {
-    marginLeft: Platform.OS === 'ios' ? 8 : 0,
-  },
 });

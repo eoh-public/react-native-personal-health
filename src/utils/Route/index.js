@@ -92,6 +92,7 @@ const Routes = {
   TermAndPolicies: 'TermAndPolicies',
   TermAndConditions: 'TermAndConditions',
   Browser: 'Browser',
+  AccountSetting: 'AccountSetting',
   VnPay: 'VnPay',
 };
 

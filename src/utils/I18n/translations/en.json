@@ -16,5 +16,12 @@
   "high": "High",
   "low": "Low",
   "no_data": "No Data",
-  "feature_under_development": "Feature is under development"
+  "feature_under_development": "Feature is under development",
+  "general": "General",
+  "health": "Health",
+  "general_information": "General information",
+  "allergies": "Allergies",
+  "chronic_health": "Chronic health",
+  "immunization_history": "Immunization history",
+  "family_history": "Family history"
 }

@@ -22,7 +22,7 @@ const PersonalHealthDrawer = memo(() => {
     () => [
       {
         id: '0',
-        route: null,
+        route: Routes.AccountSetting,
         leftImage: <Account />,
         name: t('account_setting'),
       },
