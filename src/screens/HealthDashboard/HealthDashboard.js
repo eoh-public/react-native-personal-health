@@ -1,5 +1,11 @@
-import React, { memo, useEffect, useState, useMemo, useCallback } from 'react';
-import { TouchableOpacity, View, Alert, ScrollView } from 'react-native';
+import React, { memo, useEffect, useState, useCallback } from 'react';
+import {
+  TouchableOpacity,
+  View,
+  Alert,
+  ScrollView,
+  RefreshControl,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { t } from 'i18n-js';
@@ -9,47 +15,30 @@ import { useBlockBackAndroid } from '../../hooks/Common';
 import RowTitleButton from '../../commons/RowTitleButton';
 import HealthConfigItem from './HealthConfigItem';
 import styles from './styles/healthDashboardStyles';
+import { initData } from './init';
 import { API } from '../../configs';
 
 const HealthDashboard = memo(({ route }) => {
   const navigation = useNavigation();
   useBlockBackAndroid();
-  const initData = useMemo(
-    () => [
-      {
-        name: t('heart_rate'),
-        unit: 'BPM',
-      },
-      {
-        name: t('blood_pressure'),
-        unit: 'mg/DL',
-      },
-      {
-        name: t('blood_glucose'),
-        unit: 'mm/Hg',
-      },
-      {
-        name: t('spO2'),
-        unit: '%',
-      },
-      {
-        name: t('temperature'),
-        unit: '°C',
-      },
-    ],
-    []
-  );
 
-  const [configs, setConfigs] = useState(initData);
+  const [refresing, setRefresing] = useState(false);
+  const [configs, setConfigs] = useState(initData());
 
   const fetchConfigs = useCallback(async () => {
-    const { success, data } = await axiosGet(API.PERSONAL_HEALTH.CONFIGS());
+    const { success, data } = await axiosGet(API.HEALTH_CONFIG.LIST());
     success && setConfigs(data);
   }, [setConfigs]);
 
+  const onRefresh = useCallback(async () => {
+    setRefresing(true);
+    await fetchConfigs();
+    setRefresing(false);
+  }, [fetchConfigs, setRefresing]);
+
   useEffect(() => {
-    fetchConfigs();
-  }, [fetchConfigs]);
+    onRefresh();
+  }, [onRefresh]);
 
   const onPressMenu = useCallback(() => {
     navigation.toggleDrawer();
@@ -73,7 +62,12 @@ const HealthDashboard = memo(({ route }) => {
           <IconOutline name="bell" size={24} />
         </TouchableOpacity>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollview}>
+      <ScrollView
+        contentContainerStyle={styles.scrollview}
+        refreshControl={
+          <RefreshControl refreshing={refresing} onRefresh={onRefresh} />
+        }
+      >
         <RowTitleButton
           style={styles.rowTitle}
           title={t('health_reports')}

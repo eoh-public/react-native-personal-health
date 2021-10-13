@@ -19,8 +19,11 @@ const API = {
         'https://maps.googleapis.com/maps/api/place/details/json',
     },
   },
-  PERSONAL_HEALTH: {
-    CONFIGS: () => PHConfig.apiRoot + '/personal_health/health_configs/',
+  HEALTH_CONFIG: {
+    LIST: () => PHConfig.apiRoot + '/personal_health/health_configs/',
+    DETAIL: (id) => PHConfig.apiRoot + `/personal_health/health_configs/${id}/`,
+    HISTORY: (id) =>
+      PHConfig.apiRoot + `/personal_health/health_configs/${id}/history/`,
   },
   BILLING: {
     LIST_PAYMENT_METHODS_BY_COUNTRY: (code) =>

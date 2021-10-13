@@ -1,4 +1,5 @@
 import { Platform, Dimensions, StatusBar } from 'react-native';
+import { Colors } from '../configs';
 
 const X_WIDTH = 375;
 const X_HEIGHT = 812;
@@ -32,17 +33,6 @@ export function getStatusBarHeight() {
   });
 }
 
-export const BOOKING_STATUS = {
-  ON_GOING: '----',
-  COMPLETED: 'Completed',
-  CANCELLED: 'Cancelled',
-};
-
-export const PARKING_CHARGE_TYPE = {
-  FROM_BOOKING_TIME: 'from_booking_time',
-  FROM_ARRIVAL_TIME: 'from_arrival_time',
-};
-
 export const BLE_REMOTE_SERVICE_UUID = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
 export const BLE_REMOTE_CHARACTERISTIC_UUID =
   'beb5483e-36e1-4688-b7f5-ea07361b26a8';
@@ -52,28 +42,56 @@ export const DEEP_LINK = {
   NOTIFICATION_SCREEN: 'app://eoh/notifications',
 };
 
+export const HEALTH_CONFIG_COLOR_SCHEME = {
+  Normal: {
+    textColor: Colors.Primary,
+    borderColor: Colors.Gray4,
+    strokeColor: {
+      stop1Color: '#D5FFCB',
+      stop2Color: '#00979D',
+    },
+    stickColor: '#61DDAA',
+  },
+  High: {
+    textColor: Colors.Red6,
+    borderColor: Colors.Red6,
+    strokeColor: {
+      stop1Color: '#FFB24A',
+      stop2Color: '#F14857',
+    },
+    stickColor: '#61DDAA',
+  },
+  Low: {
+    textColor: Colors.Primary,
+    borderColor: Colors.Purple6,
+    strokeColor: {
+      stop1Color: '#7B61FF',
+      stop2Color: '#F14857',
+    },
+    stickColor: '#61DDAA',
+  },
+  null: {
+    textColor: Colors.Gray7,
+    borderColor: Colors.Gray4,
+    strokeColor: {
+      stop1Color: Colors.Transparent,
+      stop2Color: Colors.Transparent,
+    },
+    stickColor: Colors.Gray5,
+  },
+};
+
 export const Constants = {
   paddingTop: getStatusBarHeight(),
   width: Dimensions.get('window').width,
   height: Dimensions.get('window').height,
-  BOOKING_STATUS,
-  PARKING_CHARGE_TYPE,
   LANGUAGE,
   FONT_PREFIX,
   isIphoneX,
   BLE_REMOTE_SERVICE_UUID,
   BLE_REMOTE_CHARACTERISTIC_UUID,
   DEEP_LINK,
-};
-
-export const SCANNING_STATUS = {
-  BOOKING_ACTIVATED: 'booking_activated',
-  WRONG_SPOT: 'wrong_spot',
-  AVAILABLE_SPOTS: 'available_spots',
-  PARKING_NEAREST: 'parking_nearest',
-  NOT_WORKING_FOR_SENSOR_ONLY: 'not_working_for_sensor_only',
-  SPOT_DOES_NOT_EXIST: 'Spot does not exist',
-  NO_CAR_PARKED_AT_THIS_SPOT: 'No car parked at this spot',
+  HEALTH_CONFIG_COLOR_SCHEME,
 };
 
 export const TESTID = {
@@ -303,13 +321,6 @@ export const TESTID = {
   NOTIFICATION_CONTENT: 'NOTIFICATION_CONTENT',
 };
 
-export const SPOT_STATUS_CHECK_CAR = {
-  MOVE_CAR_TO_SPOT: 'MOVE_CAR_TO_SPOT',
-  THIS_SPOT_HAVE_BOOKED: 'THIS_SPOT_HAVE_BOOKED',
-  YOU_ARE_IN_VIOLATION_BOOKING: 'YOU_ARE_IN_VIOLATION_BOOKING',
-  THERE_IS_CAR_PARKED: 'THERE_IS_CAR_PARKED',
-};
-
 export const NOTIFICATION_TYPES = {
   REMIND_TO_MAKE_PAYMENT: 'REMIND_TO_MAKE_PAYMENT',
   EXPIRE_PARKING_SESSION: 'EXPIRE_PARKING_SESSION',
@@ -325,9 +336,4 @@ export const NOTIFICATION_TYPES = {
   PAY_FINE_AND_EXTEND_SUCCESSFULLY: 'PAY_FINE_AND_EXTEND_SUCCESSFULLY',
   STOP_VIOLATION_FREE_PARKING_ZONE: 'STOP_VIOLATION_FREE_PARKING_ZONE',
   PARKING_COMPLETED_DUE_TO_CAR_LEAVE: 'PARKING_COMPLETED_DUE_TO_CAR_LEAVE',
-};
-
-export const BOOKING_TYPE = {
-  FULL: 'parking_is_full',
-  FREE: 'parking_is_free',
 };
