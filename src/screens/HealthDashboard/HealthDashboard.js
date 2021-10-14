@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useCallback } from 'react';
+import React, { memo, useEffect, useState, useCallback, useMemo } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -9,11 +9,13 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { t } from 'i18n-js';
-import { axiosGet } from '../../utils/Apis/axios';
+import moment from 'moment';
 
+import { axiosGet } from '../../utils/Apis/axios';
 import { useBlockBackAndroid } from '../../hooks/Common';
 import RowTitleButton from '../../commons/RowTitleButton';
 import HealthConfigItem from './HealthConfigItem';
+import ReminderCard from './ReminderCard';
 import styles from './styles/healthDashboardStyles';
 import { initData } from './init';
 import { API } from '../../configs';
@@ -52,6 +54,27 @@ const HealthDashboard = memo(({ route }) => {
     Alert.alert(t('feature_under_development'));
   }, []);
 
+  const reminder = useMemo(() => {
+    return {
+      name: 'Reminder 1',
+      remind_at: moment().format('HH:mm'),
+      data: [
+        {
+          name: 'Blood Glucose',
+          is_inputted: false,
+        },
+        {
+          name: 'Heart Rates',
+          is_inputted: true,
+        },
+        {
+          name: 'Blood Pressure',
+          is_inputted: false,
+        },
+      ],
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -68,6 +91,7 @@ const HealthDashboard = memo(({ route }) => {
           <RefreshControl refreshing={refresing} onRefresh={onRefresh} />
         }
       >
+        <ReminderCard reminder={reminder} />
         <RowTitleButton
           style={styles.rowTitle}
           title={t('health_reports')}

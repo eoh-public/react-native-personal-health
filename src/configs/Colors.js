@@ -62,6 +62,7 @@ export const Colors = {
 
   // Range Green
   Green1: '#F6FFED',
+  Green2: '#D5FFCB',
   Green3: '#B7EB8F',
   Green6: '#52C41A',
   Green7: '#00979D',

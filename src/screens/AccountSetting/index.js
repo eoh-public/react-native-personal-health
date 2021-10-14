@@ -34,7 +34,12 @@ const AccountSetting = memo(({ route }) => {
         </Text>
         <View style={styles.avatarInfo}>
           <View style={styles.avatar}>
-            <CircleView size={80} backgroundColor={Colors.Yellow6} center style={styles.overFlowHidden}>
+            <CircleView
+              size={80}
+              backgroundColor={Colors.Yellow6}
+              center
+              style={styles.overFlowHidden}
+            >
               {user.avatar ? (
                 <FastImage
                   source={{ uri: user.avatar }}
