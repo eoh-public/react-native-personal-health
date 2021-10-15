@@ -6,7 +6,7 @@ import {
   ScrollView,
   RefreshControl,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { t } from 'i18n-js';
 import moment from 'moment';
@@ -22,25 +22,28 @@ import { API } from '../../configs';
 
 const HealthDashboard = memo(({ route }) => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   useBlockBackAndroid();
 
   const [refresing, setRefresing] = useState(false);
   const [configs, setConfigs] = useState(initData());
 
   const fetchConfigs = useCallback(async () => {
+    setRefresing(true);
     const { success, data } = await axiosGet(API.HEALTH_CONFIG.LIST());
     success && setConfigs(data);
-  }, [setConfigs]);
+    setRefresing(false);
+  }, [setConfigs, setRefresing]);
 
   const onRefresh = useCallback(async () => {
-    setRefresing(true);
-    await fetchConfigs();
-    setRefresing(false);
-  }, [fetchConfigs, setRefresing]);
+    fetchConfigs();
+  }, [fetchConfigs]);
 
   useEffect(() => {
-    onRefresh();
-  }, [onRefresh]);
+    if (isFocused) {
+      onRefresh();
+    }
+  }, [isFocused, onRefresh]);
 
   const onPressMenu = useCallback(() => {
     navigation.toggleDrawer();

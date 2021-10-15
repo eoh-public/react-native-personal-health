@@ -13,6 +13,8 @@ const Header = ({
   rightComponent,
   title,
   wrapStyle,
+  wrapTitleStyle,
+  titleStyle,
   goBack,
 }) => {
   // eslint-disable-next-line no-unused-vars
@@ -34,9 +36,9 @@ const Header = ({
       >
         {(hasBack && <BackDefault goBack={goBack} />) || leftComponent}
       </View>
-      <View style={styles.titleWrap}>
+      <View style={[styles.titleWrap, wrapTitleStyle]}>
         {centerComponent || (
-          <Text bold numberOfLines={1} style={styles.titleText}>
+          <Text bold numberOfLines={1} style={[styles.titleText, titleStyle]}>
             {title}
           </Text>
         )}

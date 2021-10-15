@@ -24,6 +24,8 @@ const API = {
     DETAIL: (id) => PHConfig.apiRoot + `/personal_health/health_configs/${id}/`,
     HISTORY: (id) =>
       PHConfig.apiRoot + `/personal_health/health_configs/${id}/history/`,
+    MANUAL_INPUT: (id) =>
+      PHConfig.apiRoot + `/personal_health/health_configs/${id}/manual_input/`,
   },
   BILLING: {
     LIST_PAYMENT_METHODS_BY_COUNTRY: (code) =>

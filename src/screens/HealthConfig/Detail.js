@@ -14,7 +14,7 @@ import {
   RefreshControl,
 } from 'react-native';
 import { Icon } from '@ant-design/react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { t } from 'i18n-js';
 import { axiosGet } from '../../utils/Apis/axios';
 
@@ -33,15 +33,18 @@ import { usePopover } from '../../hooks/Common';
 import { Colors } from '../../configs';
 import styles from './styles';
 import { API } from '../../configs';
+import Routes from '../../utils/Route';
 import BlueTooth from '../../../assets/images/Common/bluetooth.svg';
 
 const HealthConfigDetail = memo(({ route }) => {
   const { goBack, navigate } = useNavigation();
+  const isFocused = useIsFocused();
   const { config } = route.params;
   const [refresing, setRefresing] = useState(false);
   const [configDetail, setConfigDetail] = useState(config);
 
   const fetchDetail = useCallback(async () => {
+    setRefresing(true);
     if (!config.id) {
       return;
     }
@@ -51,17 +54,18 @@ const HealthConfigDetail = memo(({ route }) => {
     if (success) {
       setConfigDetail(data);
     }
+    setRefresing(false);
   }, [config.id, setConfigDetail]);
 
-  const onRefresh = useCallback(async () => {
-    setRefresing(true);
-    await fetchDetail();
-    setRefresing(false);
+  const onRefresh = useCallback(() => {
+    fetchDetail();
   }, [fetchDetail]);
 
   useEffect(() => {
-    onRefresh();
-  }, [onRefresh]);
+    if (isFocused) {
+      onRefresh();
+    }
+  }, [isFocused, onRefresh]);
 
   const listMenuMoreItem = useMemo(
     () => [
@@ -82,7 +86,8 @@ const HealthConfigDetail = memo(({ route }) => {
       {
         text: t('manual_input'),
         icon: <Icon name="export" color={Colors.Primary} size={32} />,
-        route: null,
+        route: Routes.ManualInput,
+        data: { config: configDetail },
       },
       {
         text: t('connect_devices'),
@@ -90,7 +95,7 @@ const HealthConfigDetail = memo(({ route }) => {
         route: null,
       },
     ],
-    []
+    [configDetail]
   );
 
   const onMenuItemClick = useCallback(

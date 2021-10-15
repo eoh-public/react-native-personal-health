@@ -11,7 +11,7 @@ import Svg, {
 } from 'react-native-svg';
 import { t } from 'i18n-js';
 import { polarToCartesian } from './helper';
-import { Colors, Fonts } from '../../../configs';
+import { Colors } from '../../../configs';
 import { HEALTH_CONFIG_COLOR_SCHEME } from '../../../configs/Constants';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -20,7 +20,8 @@ const DonutView = memo(
   ({ data, width = 360, size = 300, strokeWidth = 14 }) => {
     const { textColor, strokeColor, stickColor } =
       HEALTH_CONFIG_COLOR_SCHEME[data.text] || HEALTH_CONFIG_COLOR_SCHEME.null;
-    const { value, max: maxValue = 0, min: minValue = 0 } = data;
+    const { value, max: maxValue, min: minValue } = data;
+
     const viewBox = `0 0 ${width} ${width}`;
     const center = width / 2;
     const gOrigin = `${center}, ${center}`;
@@ -45,7 +46,7 @@ const DonutView = memo(
         return Animated.timing(animatedValue, {
           toValue,
           duration: 500,
-          delay: 300,
+          delay: 500,
           useNativeDriver: true,
         }).start();
       },
@@ -111,9 +112,9 @@ const DonutView = memo(
             fill={textColor}
             fontSize="16"
             x={width / 2}
-            y={width / 2 - 32}
+            y={width / 2 - 26}
             textAnchor="middle"
-            fontFamily={Fonts.Semibold}
+            fontWeight="600"
           >
             {data.text ? t(`${data.text}`) : t('no_data')}
           </Text>
@@ -121,19 +122,19 @@ const DonutView = memo(
             fill={Colors.Gray9}
             fontSize="40"
             x={width / 2}
-            y={width / 2 + 8}
+            y={width / 2 + 12}
             textAnchor="middle"
-            fontFamily={Fonts.Bold}
+            fontWeight="600"
           >
             {value !== null ? value : '-'}
           </Text>
           <Text
-            fill={Colors.Gray8}
+            fill={Colors.Gray9}
             fontSize="16"
             x={width / 2}
-            y={width / 2 + 28}
+            y={width / 2 + 32}
             textAnchor="middle"
-            fontFamily={Fonts.Regular}
+            fontWeight="400"
           >
             {data.unit}
           </Text>

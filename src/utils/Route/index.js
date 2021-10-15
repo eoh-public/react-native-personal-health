@@ -4,6 +4,7 @@ const Routes = {
   PersonalHealthMapDrawer: 'PersonalHealthMapDrawer',
   HealthDashboard: 'HealthDashboard',
   HealthConfigDetail: 'HealthConfigDetail',
+  ManualInput: 'ManualInput',
   AccountSetting: 'AccountSetting',
 };
 
