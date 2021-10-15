@@ -126,7 +126,7 @@
     "react-native-modal-datetime-picker": "^8.9.3",
     "react-native-parallax-scroll-view": "^0.21.3",
     "react-native-permissions": "^2.1.5",
-    "react-native-popover-view": "^3.0.3",
+    "react-native-popover-view": "^4.0.3",
     "react-native-reanimated": "1.10.1",
     "react-native-safe-area-context": "^3.1.1",
     "react-native-screens": "^2.9.0",

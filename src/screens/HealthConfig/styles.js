@@ -18,7 +18,7 @@ export default StyleSheet.create({
   buttonMore: {
     marginLeft: 8,
   },
-  menuAction: {
+  menuMore: {
     borderRadius: 10,
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
@@ -35,5 +35,24 @@ export default StyleSheet.create({
   },
   wrapText: {
     alignItems: 'center',
+  },
+  menuAction: {
+    paddingBottom: 8,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 180,
+    padding: 12,
+    marginTop: 16,
+    backgroundColor: Colors.White,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: Colors.Gray4,
+  },
+  menuItemText: {
+    marginLeft: 8,
+    marginTop: 4,
   },
 });

@@ -26,13 +26,17 @@ import DonutView from '../../commons/HealthConfig/DonutView';
 import AdviceCard from '../../commons/HealthConfig/AdviceCard';
 import MinMaxAvr from '../../commons/HealthConfig/MinMaxAvr';
 import ConfigHistoryChart from '../../commons/HealthConfig/ConfigHistoryChart';
+import FloatingActionButton from '../../commons/FloatingActionButton';
+import MenuAction from '../../commons/MenuAction';
 import { usePopover } from '../../hooks/Common';
+
 import { Colors } from '../../configs';
 import styles from './styles';
 import { API } from '../../configs';
+import BlueTooth from '../../../assets/images/Common/bluetooth.svg';
 
 const HealthConfigDetail = memo(({ route }) => {
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
   const { config } = route.params;
   const [refresing, setRefresing] = useState(false);
   const [configDetail, setConfigDetail] = useState(config);
@@ -59,18 +63,64 @@ const HealthConfigDetail = memo(({ route }) => {
     onRefresh();
   }, [onRefresh]);
 
-  const listMenuItem = useMemo(() => {
-    return [{ text: t('report_logs') }, { text: t('connect_devices') }];
-  }, []);
+  const listMenuMoreItem = useMemo(
+    () => [
+      {
+        text: t('report_logs'),
+        route: null,
+      },
+      {
+        text: t('connect_devices'),
+        route: null,
+      },
+    ],
+    []
+  );
 
-  const onItemMenuClick = useCallback((item) => {
-    Alert.alert(t('feature_under_development'));
-  }, []);
+  const listMenuActionItem = useMemo(
+    () => [
+      {
+        text: t('manual_input'),
+        icon: <Icon name="export" color={Colors.Primary} size={32} />,
+        route: null,
+      },
+      {
+        text: t('connect_devices'),
+        icon: <BlueTooth />,
+        route: null,
+      },
+    ],
+    []
+  );
 
-  const { childRef, showingPopover, showPopoverWithRef, hidePopover } =
-    usePopover();
-  const refMenuAction = useRef();
-  const onShowMenu = () => showPopoverWithRef(refMenuAction);
+  const onMenuItemClick = useCallback(
+    (item) => {
+      if (item.route) {
+        navigate(item.route, item.data);
+      } else {
+        Alert.alert(t('feature_under_development'));
+      }
+    },
+    [navigate]
+  );
+
+  const {
+    childRef: refMenuMore,
+    showingPopover: showingMenuMore,
+    showPopoverWithRef: showMenuMoreWithRef,
+    hidePopover: hideMenuMore,
+  } = usePopover();
+  const refButtonMenuMore = useRef();
+  const showPopover = () => showMenuMoreWithRef(refButtonMenuMore);
+
+  const {
+    childRef: refMenuAction,
+    showingPopover: showingMenuAction,
+    showPopoverWithRef: showMenuActionWithRef,
+    hidePopover: hideMenuAction,
+  } = usePopover();
+  const refButtonMenuAction = useRef();
+  const showMenuAction = () => showMenuActionWithRef(refButtonMenuAction);
 
   const headerRight = useMemo(
     () => (
@@ -80,14 +130,26 @@ const HealthConfigDetail = memo(({ route }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonMore}
-          ref={refMenuAction}
-          onPress={onShowMenu}
+          ref={refButtonMenuMore}
+          onPress={showPopover}
         >
           <Icon name={'more'} size={27} color={Colors.Black} />
         </TouchableOpacity>
       </View>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  const renderMenuActionItem = useCallback(
+    (item) => (
+      <View style={styles.menuItem}>
+        {item.icon}
+        <Text type="H4" style={styles.menuItemText}>
+          {item.text}
+        </Text>
+      </View>
+    ),
     []
   );
 
@@ -132,13 +194,28 @@ const HealthConfigDetail = memo(({ route }) => {
         <MinMaxAvr data={configDetail} />
       </ScrollView>
       <MenuActionMore
-        isVisible={showingPopover}
-        hideMore={hidePopover}
-        listMenuItem={listMenuItem}
-        childRef={childRef}
-        onItemClick={onItemMenuClick}
-        wrapStyle={styles.menuAction}
+        isVisible={showingMenuMore}
+        hideMore={hideMenuMore}
+        listMenuItem={listMenuMoreItem}
+        childRef={refMenuMore}
+        onItemClick={onMenuItemClick}
+        wrapStyle={styles.menuMore}
         isTextCenter={false}
+      />
+      <FloatingActionButton
+        ref={refButtonMenuAction}
+        icon={showingMenuAction ? 'close' : 'plus'}
+        onPress={showingMenuAction ? hideMenuAction : showMenuAction}
+      />
+      <MenuAction
+        mode="tooltip"
+        isVisible={showingMenuAction}
+        childRef={refMenuAction}
+        listMenuItem={listMenuActionItem}
+        onItemClick={onMenuItemClick}
+        renderItem={renderMenuActionItem}
+        hideMenuAction={hideMenuAction}
+        wrapStyle={styles.menuAction}
       />
     </View>
   );

@@ -55,7 +55,7 @@ const ReminderCard = memo(({ reminder }) => {
                   style={styles.buttonManualInput}
                 >
                   <Text type="Label" color={Colors.Primary}>
-                    {t('manual_input')}
+                    {t('reminder_manual_input')}
                   </Text>
                 </TouchableOpacity>
               ) : (
