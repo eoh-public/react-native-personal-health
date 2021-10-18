@@ -14,6 +14,7 @@ const Header = ({
   title,
   wrapStyle,
   wrapTitleStyle,
+  buttonBackStyle,
   titleStyle,
   goBack,
 }) => {
@@ -34,7 +35,14 @@ const Header = ({
         onLayout={onLayout}
         style={[styles.componentContainer, { minWidth: width }]}
       >
-        {(hasBack && <BackDefault goBack={goBack} />) || leftComponent}
+        {(hasBack && (
+          <BackDefault
+            goBack={goBack}
+            arrowLeft
+            buttonStyle={buttonBackStyle}
+          />
+        )) ||
+          leftComponent}
       </View>
       <View style={[styles.titleWrap, wrapTitleStyle]}>
         {centerComponent || (

@@ -6,6 +6,7 @@ const Routes = {
   HealthConfigDetail: 'HealthConfigDetail',
   ManualInput: 'ManualInput',
   AccountSetting: 'AccountSetting',
+  HealthInformation: 'HealthInformation',
 };
 
 export default Routes;

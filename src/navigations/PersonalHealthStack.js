@@ -11,6 +11,7 @@ import PersonalHealthDrawer from '../screens/PersonalHealthDrawer';
 import HealthConfigDetail from '../screens/HealthConfig/Detail';
 import ManualInput from '../screens/ManualInput/ManualInput';
 import AccountSetting from '../screens/AccountSetting';
+import HealthInformation from '../screens/HealthInformation';
 
 import utils from './utils';
 
@@ -85,6 +86,11 @@ export const PersonalHealthStack = memo(() => {
         options={{
           title: '',
         }}
+      />
+      <Stack.Screen
+        name={Routes.HealthInformation}
+        component={HealthInformation}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

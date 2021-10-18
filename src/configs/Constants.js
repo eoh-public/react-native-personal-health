@@ -81,6 +81,13 @@ export const HEALTH_CONFIG_COLOR_SCHEME = {
   },
 };
 
+export const TypeHealthInfo = {
+  BLOOD_GLUCOSE: 'BLOOD_GLUCOSE',
+  BLOOD_PRESSURE: 'BLOOD_PRESSURE',
+  HEART_RATES: 'HEART_RATES',
+  SPO2: 'SPO2',
+};
+
 export const Constants = {
   paddingTop: getStatusBarHeight(),
   width: Dimensions.get('window').width,
