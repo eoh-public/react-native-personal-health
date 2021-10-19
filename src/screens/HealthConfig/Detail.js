@@ -180,7 +180,10 @@ const HealthConfigDetail = memo(({ route }) => {
           buttonType="info"
           style={styles.title}
         />
-        <DonutView data={configDetail} />
+        <DonutView
+          data={configDetail}
+          isPercentage={configDetail.name === 'spO2'}
+        />
         <View style={styles.wrapText}>
           <Text type="Label" color={Colors.Gray7}>
             {configDetail.value

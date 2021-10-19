@@ -59,9 +59,16 @@ const ManualInput = memo(({ route }) => {
           <Text style={styles.textValue} color={Colors.Gray9} underline bold>
             {value}
           </Text>
-          <Text style={styles.textUnit} type="H2" color={Colors.Gray9} semibold>
-            {config.unit}
-          </Text>
+          <View style={styles.wrapUnit}>
+            <Text
+              style={styles.textUnit}
+              type="H2"
+              color={Colors.Gray9}
+              semibold
+            >
+              {config.unit}
+            </Text>
+          </View>
         </View>
         <HorizontalPicker
           minimum={0} //

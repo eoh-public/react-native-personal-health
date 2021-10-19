@@ -27,7 +27,7 @@ const RepeatOptionsPopup = ({ isVisible, onHide, onSetRepeat }) => {
         </TouchableOpacity>
       );
     },
-    [t, onSetRepeat]
+    [onSetRepeat]
   );
 
   return (

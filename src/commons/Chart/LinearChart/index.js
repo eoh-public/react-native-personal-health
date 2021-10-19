@@ -38,7 +38,7 @@ const chartOptions = {
   series: [],
   tooltip: {
     formatter: function () {
-      return this.y;
+      return this.y.toFixed(2);
     },
     style: {
       color: Colors.White,
@@ -117,6 +117,14 @@ const LinearChart = ({ chartData, color }) => {
             width: 1,
           },
         ],
+      },
+      yAxis: {
+        labels: {
+          format: '{value:.2f}',
+        },
+        title: {
+          text: null,
+        },
       },
       tooltip: {
         ...chartOptions.tooltip,

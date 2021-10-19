@@ -24,7 +24,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 100,
   },
-  wrapValue: {},
+  wrapValue: {
+    flexDirection: 'row',
+  },
+  wrapUnit: {
+    position: 'relative',
+  },
   textConfigName: {
     position: 'absolute',
     top: 60,
@@ -35,7 +40,8 @@ export default StyleSheet.create({
   },
   textUnit: {
     position: 'absolute',
-    right: -60,
+    top: 0,
+    left: 0,
   },
   picker: {
     marginTop: 40,

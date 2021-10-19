@@ -17,10 +17,22 @@ import { HEALTH_CONFIG_COLOR_SCHEME } from '../../../configs/Constants';
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 const DonutView = memo(
-  ({ data, width = 360, size = 300, strokeWidth = 14 }) => {
+  ({
+    data,
+    width = 360,
+    size = 300,
+    strokeWidth = 14,
+    isPercentage = true,
+  }) => {
     const { textColor, strokeColor, stickColor } =
       HEALTH_CONFIG_COLOR_SCHEME[data.text] || HEALTH_CONFIG_COLOR_SCHEME.null;
-    const { value, max: maxValue, min: minValue } = data;
+    const { value } = data;
+    let minValue = 0;
+    let maxValue = 0;
+
+    if (isPercentage) {
+      maxValue = 100;
+    }
 
     const viewBox = `0 0 ${width} ${width}`;
     const center = width / 2;
