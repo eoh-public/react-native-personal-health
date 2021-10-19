@@ -326,6 +326,9 @@ export const TESTID = {
 
   // Notifications
   NOTIFICATION_CONTENT: 'NOTIFICATION_CONTENT',
+
+  // WheelDateTimePicker
+  WHEEL_DATE_TIME_PICKER: 'WHEEL_DATE_TIME_PICKER',
 };
 
 export const NOTIFICATION_TYPES = {

@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HealthDashboard from '../screens/HealthDashboard/HealthDashboard';
 import PersonalHealthDrawer from '../screens/PersonalHealthDrawer';
 import HealthConfigDetail from '../screens/HealthConfig/Detail';
+import AddEditSchedule from '../screens/AddEditSchedule';
 import ManualInput from '../screens/ManualInput/ManualInput';
 import AccountSetting from '../screens/AccountSetting';
 import HealthInformation from '../screens/HealthInformation';
@@ -90,6 +91,11 @@ export const PersonalHealthStack = memo(() => {
       <Stack.Screen
         name={Routes.HealthInformation}
         component={HealthInformation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={Routes.AddEditSchedule}
+        component={AddEditSchedule}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

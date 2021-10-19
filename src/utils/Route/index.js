@@ -6,7 +6,11 @@ const Routes = {
   HealthConfigDetail: 'HealthConfigDetail',
   ManualInput: 'ManualInput',
   AccountSetting: 'AccountSetting',
+<<<<<<< HEAD
+  AddEditSchedule: 'AddEditSchedule'
+=======
   HealthInformation: 'HealthInformation',
+>>>>>>> main
 };
 
 export default Routes;
