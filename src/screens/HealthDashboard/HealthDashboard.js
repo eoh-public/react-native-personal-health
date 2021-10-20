@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { memo, useEffect, useState, useCallback } from 'react';
 import {
   TouchableOpacity,
   View,
@@ -9,9 +9,8 @@ import {
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { t } from 'i18n-js';
-import moment from 'moment';
 
-import { axiosGet } from '../../utils/Apis/axios';
+import { axiosPost, axiosGet } from '../../utils/Apis/axios';
 import { useBlockBackAndroid } from '../../hooks/Common';
 import RowTitleButton from '../../commons/RowTitleButton';
 import HealthConfigItem from './HealthConfigItem';
@@ -25,19 +24,40 @@ const HealthDashboard = memo(({ route }) => {
   const isFocused = useIsFocused();
   useBlockBackAndroid();
 
-  const [refresing, setRefresing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [configs, setConfigs] = useState(initData());
+  const [reminders, setReminders] = useState([]);
 
   const fetchConfigs = useCallback(async () => {
-    setRefresing(true);
-    const { success, data } = await axiosGet(API.HEALTH_CONFIG.LIST());
-    success && setConfigs(data);
-    setRefresing(false);
-  }, [setConfigs, setRefresing]);
+    setRefreshing(true);
+    const { data, success } = await axiosGet(API.HEALTH_CONFIG.LIST());
+
+    if (success && data.length > 0) {
+      setConfigs(data);
+    } else {
+      const { data, success } = await axiosPost(
+        API.HEALTH_CONFIG.CREATE_HEALTH_CHIP()
+      );
+      success && setConfigs(data);
+    }
+
+    setRefreshing(false);
+  }, [setConfigs, setRefreshing]);
+
+  const fetchActiveReminders = useCallback(async () => {
+    setRefreshing(true);
+    const { data, success } = await axiosGet(
+      API.REMINDER.ACTIVE_REMINDERS()
+    );
+    success && setReminders(data);
+
+    setRefreshing(false);
+  }, [setReminders, setRefreshing]);
 
   const onRefresh = useCallback(async () => {
     fetchConfigs();
-  }, [fetchConfigs]);
+    fetchActiveReminders();
+  }, [fetchConfigs, fetchActiveReminders]);
 
   useEffect(() => {
     if (isFocused) {
@@ -57,27 +77,6 @@ const HealthDashboard = memo(({ route }) => {
     Alert.alert(t('feature_under_development'));
   }, []);
 
-  const reminder = useMemo(() => {
-    return {
-      name: 'Reminder 1',
-      remind_at: moment().format('HH:mm'),
-      data: [
-        {
-          name: 'Blood Glucose',
-          is_inputted: false,
-        },
-        {
-          name: 'Heart Rates',
-          is_inputted: true,
-        },
-        {
-          name: 'Blood Pressure',
-          is_inputted: false,
-        },
-      ],
-    };
-  }, []);
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -91,10 +90,12 @@ const HealthDashboard = memo(({ route }) => {
       <ScrollView
         contentContainerStyle={styles.scrollview}
         refreshControl={
-          <RefreshControl refreshing={refresing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <ReminderCard reminder={reminder} />
+        {reminders.map((item, index) => (
+          <ReminderCard key={index} reminder={item} />
+        ))}
         <RowTitleButton
           style={styles.rowTitle}
           title={t('health_reports')}

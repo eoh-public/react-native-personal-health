@@ -21,11 +21,17 @@ const API = {
   },
   HEALTH_CONFIG: {
     LIST: () => PHConfig.apiRoot + '/personal_health/health_configs/',
+    CREATE_HEALTH_CHIP: () =>
+      PHConfig.apiRoot + '/personal_health/health_configs/create_health_chip/',
     DETAIL: (id) => PHConfig.apiRoot + `/personal_health/health_configs/${id}/`,
     HISTORY: (id) =>
       PHConfig.apiRoot + `/personal_health/health_configs/${id}/history/`,
     MANUAL_INPUT: (id) =>
       PHConfig.apiRoot + `/personal_health/health_configs/${id}/manual_input/`,
+  },
+  REMINDER: {
+    ACTIVE_REMINDERS: () =>
+      PHConfig.apiRoot + '/personal_health/reminders/active_reminders/',
   },
   BILLING: {
     LIST_PAYMENT_METHODS_BY_COUNTRY: (code) =>
