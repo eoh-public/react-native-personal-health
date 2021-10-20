@@ -3,20 +3,21 @@ import BloodGlucoseInfo from './BloodGlucose';
 import BloodPressureInfo from './BloodPressure';
 import Spo2Info from './Sp02';
 import HeartRatesInfo from './HeartRates';
-import { TypeHealthInfo } from '../../configs/Constants';
+import UpdatingInfo from './Updating';
+import { HEALTH_CONFIG_NAME } from '../../configs/Constants';
 
 const getComponent = (type) => {
   switch (type) {
-    case TypeHealthInfo.BLOOD_GLUCOSE:
+    case HEALTH_CONFIG_NAME.blood_glucose:
       return BloodGlucoseInfo;
-    case TypeHealthInfo.BLOOD_PRESSURE:
+    case HEALTH_CONFIG_NAME.blood_pressure:
       return BloodPressureInfo;
-    case TypeHealthInfo.SPO2:
+    case HEALTH_CONFIG_NAME.spO2:
       return Spo2Info;
-    case TypeHealthInfo.HEART_RATES:
+    case HEALTH_CONFIG_NAME.heart_rate:
       return HeartRatesInfo;
     default:
-      return () => <></>;
+      return UpdatingInfo;
   }
 };
 

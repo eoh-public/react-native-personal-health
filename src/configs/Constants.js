@@ -81,12 +81,45 @@ export const HEALTH_CONFIG_COLOR_SCHEME = {
   },
 };
 
-export const TypeHealthInfo = {
-  BLOOD_GLUCOSE: 'BLOOD_GLUCOSE',
-  BLOOD_PRESSURE: 'BLOOD_PRESSURE',
-  HEART_RATES: 'HEART_RATES',
-  SPO2: 'SPO2',
+export const HEALTH_CONFIG_NAME = {
+  heart_rate: 'Heart Rate',
+  spO2: 'spO2',
+  blood_glucose: 'Blood Glucose',
+  blood_pressure: 'Blood Pressure',
+  temperature: 'Temperature',
 };
+
+export const HEALTH_CONFIG_MIN_MAX = {
+  spO2: {
+    min: 0,
+    max: 100,
+  },
+  heart_rate: {
+    min: 0,
+    max: 200,
+  },
+  blood_glucose: {
+    min: 0,
+    max: 250,
+  },
+  blood_pressure: {
+    min: 0,
+    max: 200,
+  },
+  temperature: {
+    min: 0,
+    max: 50,
+  },
+};
+
+function getKeyByValue(object, value) {
+  return Object.keys(object).find((key) => object[key] === value);
+}
+
+export function getHealthConfigMinMax(name) {
+  const key = getKeyByValue(HEALTH_CONFIG_NAME, name);
+  return HEALTH_CONFIG_MIN_MAX[key];
+}
 
 export const Constants = {
   paddingTop: getStatusBarHeight(),

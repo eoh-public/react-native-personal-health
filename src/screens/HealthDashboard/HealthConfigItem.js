@@ -21,6 +21,12 @@ const HealthConfigItem = memo(({ item }) => {
     });
   }, [navigate, item]);
 
+  const goToInformation = useCallback(() => {
+    navigate(Routes.HealthInformation, {
+      type: item.name,
+    });
+  }, [item.name, navigate]);
+
   return (
     <TouchableWithoutFeedback onPress={goToDetail}>
       <View style={[styles.container, { borderColor }]}>
@@ -29,7 +35,7 @@ const HealthConfigItem = memo(({ item }) => {
             <Text type="H4" bold>
               {item.name}
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={goToInformation}>
               <IconOutline name="info-circle" size={24} />
             </TouchableOpacity>
           </View>

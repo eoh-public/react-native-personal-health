@@ -12,6 +12,7 @@ import BottomButtonView from '../../commons/BottomButtonView';
 import { Colors } from '../../configs';
 import { API } from '../../configs';
 import styles from './styles/manualInputStyles';
+import { getHealthConfigMinMax } from '../../configs/Constants';
 
 const ManualInput = memo(({ route }) => {
   const { goBack } = useNavigation();
@@ -35,6 +36,8 @@ const ManualInput = memo(({ route }) => {
     },
     [setValue]
   );
+
+  const { min, max } = getHealthConfigMinMax(config.name); // TODO change config name to snake
 
   return (
     <View style={styles.container}>
@@ -71,8 +74,8 @@ const ManualInput = memo(({ route }) => {
           </View>
         </View>
         <HorizontalPicker
-          minimum={0} //
-          maximum={200} // TODO: wait for design
+          minimum={min}
+          maximum={max}
           value={value}
           segmentSpacing={8}
           step={10}

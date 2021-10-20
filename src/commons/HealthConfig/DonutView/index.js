@@ -12,27 +12,19 @@ import Svg, {
 import { t } from 'i18n-js';
 import { polarToCartesian } from './helper';
 import { Colors } from '../../../configs';
-import { HEALTH_CONFIG_COLOR_SCHEME } from '../../../configs/Constants';
+import {
+  HEALTH_CONFIG_COLOR_SCHEME,
+  getHealthConfigMinMax,
+} from '../../../configs/Constants';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 const DonutView = memo(
-  ({
-    data,
-    width = 360,
-    size = 300,
-    strokeWidth = 14,
-    isPercentage = true,
-  }) => {
+  ({ data, width = 360, size = 300, strokeWidth = 14 }) => {
     const { textColor, strokeColor, stickColor } =
       HEALTH_CONFIG_COLOR_SCHEME[data.text] || HEALTH_CONFIG_COLOR_SCHEME.null;
-    const { value } = data;
-    let minValue = 0;
-    let maxValue = 0;
-
-    if (isPercentage) {
-      maxValue = 100;
-    }
+    const { value, name } = data;
+    const { min: minValue, max: maxValue } = getHealthConfigMinMax(name); // TODO change config name to snake
 
     const viewBox = `0 0 ${width} ${width}`;
     const center = width / 2;
