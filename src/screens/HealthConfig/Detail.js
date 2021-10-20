@@ -173,7 +173,7 @@ const HealthConfigDetail = memo(({ route }) => {
         }
       >
         <RowTitleButton
-          title={config.name}
+          title={t(config.name)}
           titleType="H2"
           titleBold
           buttonText={t('stop_sharing')}

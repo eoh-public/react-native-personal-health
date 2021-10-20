@@ -46,9 +46,7 @@ const HealthDashboard = memo(({ route }) => {
 
   const fetchActiveReminders = useCallback(async () => {
     setRefreshing(true);
-    const { data, success } = await axiosGet(
-      API.REMINDER.ACTIVE_REMINDERS()
-    );
+    const { data, success } = await axiosGet(API.REMINDER.ACTIVE_REMINDERS());
     success && setReminders(data);
 
     setRefreshing(false);

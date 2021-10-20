@@ -12,7 +12,7 @@
   "share_all": "Share All",
   "stop_sharing": "Stop Sharing",
   "blood_glucose": "Blood Glucose",
-  "spO2": "spO2",
+  "spO2": "SpO2",
   "heart_rate": "Heart Rate",
   "blood_pressure": "Blood Pressure",
   "temperature": "Temperature",
@@ -81,5 +81,7 @@
   "at_risk": "At Risk",
   "prehypertension": "prehypertension",
   "hypertension": "hypertension",
+  "information_will_be_updated_soon": "Information will be updated soon",
+  "information": "Information",
   "hight_blood_pressure": "Hight Blood Pressure"
 }

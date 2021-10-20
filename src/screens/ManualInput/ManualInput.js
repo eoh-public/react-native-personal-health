@@ -12,7 +12,7 @@ import BottomButtonView from '../../commons/BottomButtonView';
 import { Colors } from '../../configs';
 import { API } from '../../configs';
 import styles from './styles/manualInputStyles';
-import { getHealthConfigMinMax } from '../../configs/Constants';
+import { HEALTH_CONFIG_MIN_MAX } from '../../configs/Constants';
 
 const ManualInput = memo(({ route }) => {
   const { goBack } = useNavigation();
@@ -37,7 +37,7 @@ const ManualInput = memo(({ route }) => {
     [setValue]
   );
 
-  const { min, max } = getHealthConfigMinMax(config.name); // TODO change config name to snake
+  const { min, max } = HEALTH_CONFIG_MIN_MAX[config.name];
 
   return (
     <View style={styles.container}>

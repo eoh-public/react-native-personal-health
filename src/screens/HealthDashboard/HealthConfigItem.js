@@ -33,7 +33,7 @@ const HealthConfigItem = memo(({ item }) => {
         <View>
           <View style={styles.rowTop}>
             <Text type="H4" bold>
-              {item.name}
+              {t(item.name)}
             </Text>
             <TouchableOpacity onPress={goToInformation}>
               <IconOutline name="info-circle" size={24} />
