@@ -8,6 +8,7 @@ const Routes = {
   AccountSetting: 'AccountSetting',
   AddEditSchedule: 'AddEditSchedule',
   HealthInformation: 'HealthInformation',
+  HealthDevices: 'HealthDevices',
 };
 
 export default Routes;

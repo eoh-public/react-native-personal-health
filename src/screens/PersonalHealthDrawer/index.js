@@ -28,7 +28,7 @@ const PersonalHealthDrawer = memo(() => {
       },
       {
         id: '1',
-        route: null,
+        route: Routes.HealthDevices,
         leftImage: <Hub />,
         name: t('health_devices'),
       },

@@ -13,6 +13,7 @@ import AddEditSchedule from '../screens/AddEditSchedule';
 import ManualInput from '../screens/ManualInput/ManualInput';
 import AccountSetting from '../screens/AccountSetting';
 import HealthInformation from '../screens/HealthInformation';
+import HealthDevices from '../screens/HealthDevices/index';
 
 import utils from './utils';
 
@@ -91,6 +92,11 @@ export const PersonalHealthStack = memo(() => {
       <Stack.Screen
         name={Routes.HealthInformation}
         component={HealthInformation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={Routes.HealthDevices}
+        component={HealthDevices}
         options={{ headerShown: false }}
       />
       <Stack.Screen
