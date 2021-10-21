@@ -12,7 +12,7 @@ import BottomButtonView from '../../commons/BottomButtonView';
 import { Colors } from '../../configs';
 import { API } from '../../configs';
 import styles from './styles/manualInputStyles';
-import { HEALTH_CONFIG_MIN_MAX } from '../../configs/Constants';
+import { getHealthConfigMinMax } from '../../configs/Constants';
 
 const ManualInput = memo(({ route }) => {
   const { goBack } = useNavigation();
@@ -37,7 +37,7 @@ const ManualInput = memo(({ route }) => {
     [setValue]
   );
 
-  const { min, max } = HEALTH_CONFIG_MIN_MAX[config.name];
+  const { min, max } = getHealthConfigMinMax(config.name);
 
   return (
     <View style={styles.container}>

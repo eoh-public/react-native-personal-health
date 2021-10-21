@@ -89,7 +89,7 @@ export const HEALTH_CONFIG_NAME = {
   temperature: 'temperature',
 };
 
-export const HEALTH_CONFIG_MIN_MAX = {
+const HEALTH_CONFIG_MIN_MAX = {
   spO2: {
     min: 0,
     max: 100,
@@ -110,6 +110,13 @@ export const HEALTH_CONFIG_MIN_MAX = {
     min: 0,
     max: 50,
   },
+};
+
+export const getHealthConfigMinMax = (name) => {
+  const healthConfig = HEALTH_CONFIG_MIN_MAX[name];
+  const min = healthConfig ? healthConfig.min : 0;
+  const max = healthConfig ? healthConfig.max : 0;
+  return { min, max };
 };
 
 export const Constants = {

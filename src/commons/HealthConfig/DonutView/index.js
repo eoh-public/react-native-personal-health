@@ -14,7 +14,7 @@ import { polarToCartesian } from './helper';
 import { Colors } from '../../../configs';
 import {
   HEALTH_CONFIG_COLOR_SCHEME,
-  HEALTH_CONFIG_MIN_MAX,
+  getHealthConfigMinMax,
 } from '../../../configs/Constants';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -24,7 +24,7 @@ const DonutView = memo(
     const { textColor, strokeColor, stickColor } =
       HEALTH_CONFIG_COLOR_SCHEME[data.text] || HEALTH_CONFIG_COLOR_SCHEME.null;
     const { value, name } = data;
-    const { min: minValue, max: maxValue } = HEALTH_CONFIG_MIN_MAX[name];
+    const { min: minValue, max: maxValue } = getHealthConfigMinMax(name);
 
     const viewBox = `0 0 ${width} ${width}`;
     const center = width / 2;
