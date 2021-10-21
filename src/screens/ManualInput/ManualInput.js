@@ -56,7 +56,7 @@ const ManualInput = memo(({ route }) => {
           color={Colors.Gray7}
           center
         >
-          {config.name}
+          {t(config.name)}
         </Text>
         <View style={styles.wrapValue}>
           <Text style={styles.textValue} color={Colors.Gray9} underline bold>
