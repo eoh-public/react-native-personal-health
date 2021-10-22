@@ -1,3 +1,4 @@
+/* eslint-disable promise/prefer-await-to-callbacks */
 import React, { memo, useState, useCallback, useMemo } from 'react';
 import {
   View,
@@ -5,73 +6,138 @@ import {
   Alert,
   ScrollView,
   RefreshControl,
+  Platform,
 } from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { useNavigation } from '@react-navigation/native';
 import { t } from 'i18n-js';
+import AppleHealthKit from 'react-native-health';
 
 import Header from '../../commons/Header';
 import RowTitleButton from '../../commons/RowTitleButton';
 import Device from './Device/index';
 import Text from '../../commons/Text';
 import styles from './styles';
-import { Colors } from '../../configs';
+import { Colors, API } from '../../configs';
+import { ToastBottomHelper } from '../../utils/Utils';
+import { HEALTH_TYPES } from '../../configs/Constants';
+import { axiosGet } from '../../utils/Apis/axios';
+
+const permissions = {
+  permissions: {
+    read: [
+      AppleHealthKit.Constants.Permissions.BloodPressureSystolic,
+      AppleHealthKit.Constants.Permissions.BloodPressureDiastolic,
+      AppleHealthKit.Constants.Permissions.BloodGlucose,
+      AppleHealthKit.Constants.Permissions.HeartRate,
+      AppleHealthKit.Constants.Permissions.BodyTemperature,
+    ],
+  },
+};
+
+const options = {
+  startDate: new Date(2020, 1, 1).toISOString(),
+};
+
+const arrPromise = [
+  new Promise((resolve) => {
+    AppleHealthKit.getBloodPressureSamples(options, (err, data) => {
+      resolve({
+        type: HEALTH_TYPES.BLOOD_PRESSURE,
+        err,
+        data,
+      });
+    });
+  }),
+  new Promise((resolve) => {
+    AppleHealthKit.getBloodGlucoseSamples(options, (err, data) => {
+      resolve({
+        type: HEALTH_TYPES.BLOOD_GLUCOSE,
+        err,
+        data,
+      });
+    });
+  }),
+  new Promise((resolve) => {
+    AppleHealthKit.getHeartRateSamples(options, (err, data) => {
+      resolve({
+        type: HEALTH_TYPES.HEART_RATE,
+        err,
+        data,
+      });
+    });
+  }),
+  new Promise((resolve) => {
+    AppleHealthKit.getBodyTemperatureSamples(options, (err, data) => {
+      resolve({
+        type: HEALTH_TYPES.TEMPERATURE,
+        err,
+        data,
+      });
+    });
+  }),
+];
 
 const HealthDevices = memo(({ route }) => {
   const { goBack } = useNavigation();
-  const [refresing, setRefresing] = useState(false);
-  const [isConnecting, setIsConnecting] = useState(false);
-  const dataSmartDevices = [
-    {
-      id: 1,
-      name: 'Apple Watch Series 3',
-      isConnected: true,
-    },
-  ];
-  const dataBloodGlucoseDevices = [
-    {
-      id: 2,
-      name: 'Omron HEM-6232T',
-      isConnected: false,
-    },
-    {
-      id: 4,
-      name: 'Jumper HA-121',
-      isConnected: false,
-    },
-  ];
-  const dataHeartRateDevices = [
-    {
-      id: 5,
-      name: 'Omron HEM-6232T',
-      isConnected: true,
-    },
-    {
-      id: 6,
-      name: 'Jumper HA-121',
-      isConnected: true,
-    },
-  ];
-  const dataBloodPresureDevices = [
-    {
-      id: 7,
-      name: 'Jumper HA-121',
-      isConnected: true,
-    },
-  ];
-  const dataSpO2Devices = [
-    {
-      id: 8,
-      name: 'Omron HEM-6232T',
-      isConnected: true,
-    },
-  ];
+  const [refreshing, setRefreshing] = useState(false);
+  const [isAppleHealthConnected, setIsAppleHealthConnected] = useState(false);
+
+  const dataSmartDevices = useMemo(() => {
+    if (Platform.OS === 'android') {
+      return [];
+    }
+    return [
+      {
+        id: 1,
+        name: 'Apple Watch',
+      },
+    ];
+  }, []);
+
   const [smartDevices] = useState(dataSmartDevices);
-  const [bloodGlucoseDevices] = useState(dataBloodGlucoseDevices);
-  const [heartRateDevices] = useState(dataHeartRateDevices);
-  const [bloodPresureDevices] = useState(dataBloodPresureDevices);
-  const [spO2Devices] = useState(dataSpO2Devices);
-  const [idDevice, setIdDevice] = useState(null);
+  // const dataBloodGlucoseDevices = [
+  //   {
+  //     id: 2,
+  //     name: 'Omron HEM-6232T',
+  //     isConnected: false,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Jumper HA-121',
+  //     isConnected: false,
+  //   },
+  // ];
+  // const dataHeartRateDevices = [
+  //   {
+  //     id: 5,
+  //     name: 'Omron HEM-6232T',
+  //     isConnected: true,
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Jumper HA-121',
+  //     isConnected: true,
+  //   },
+  // ];
+  // const dataBloodPressureDevices = [
+  //   {
+  //     id: 7,
+  //     name: 'Jumper HA-121',
+  //     isConnected: true,
+  //   },
+  // ];
+  // const dataSpO2Devices = [
+  //   {
+  //     id: 8,
+  //     name: 'Omron HEM-6232T',
+  //     isConnected: true,
+  //   },
+  // ];
+  // const [bloodGlucoseDevices] = useState(dataBloodGlucoseDevices);
+  // const [heartRateDevices] = useState(dataHeartRateDevices);
+  // const [bloodPressureDevices] = useState(dataBloodPressureDevices);
+  // const [spO2Devices] = useState(dataSpO2Devices);
 
   const GroupDevices = memo(({ title, children, style }) => {
     return (
@@ -85,8 +151,8 @@ const HealthDevices = memo(({ route }) => {
   });
 
   const onRefresh = useCallback(async () => {
-    setRefresing(true);
-    setRefresing(false);
+    setRefreshing(true);
+    setRefreshing(false);
   }, []);
 
   const onPressConnectAll = useCallback(async () => {
@@ -97,10 +163,38 @@ const HealthDevices = memo(({ route }) => {
     Alert.alert(t('feature_under_development'));
   }, []);
 
-  const onPressDevice = useCallback(async (id) => {
-    setIdDevice(id);
-    setIsConnecting(true);
+  const getData = useCallback(async () => {
+    const { data } = await axiosGet(API.HEALTH_CONFIG.LIST()); // TODO use redux
+    await Promise.all(arrPromise).then((values) => {
+      values.map((value) => {
+        if (value.data.length > 0) {
+          // eslint-disable-next-line no-unused-vars
+          const config = data.find((x) => x.name === value.type);
+          // console.log('value', value)
+          // console.log('config', config)
+          //  TODO store value to responding config
+        }
+      });
+    });
   }, []);
+
+  const initHealthKit = useCallback(async () => {
+    AppleHealthKit.initHealthKit(permissions, (error) => {
+      if (error) {
+        ToastBottomHelper.error('Cannot grant permissions.');
+        return;
+      }
+      getData();
+    });
+  }, [getData]);
+
+  const onPressDevice = useCallback(
+    async (id) => {
+      initHealthKit();
+      setIsAppleHealthConnected(true);
+    },
+    [initHealthKit, setIsAppleHealthConnected]
+  );
 
   const headerRight = useMemo(
     () => (
@@ -132,7 +226,7 @@ const HealthDevices = memo(({ route }) => {
       <ScrollView
         contentContainerStyle={styles.scrollview}
         refreshControl={
-          <RefreshControl refreshing={refresing} onRefresh={onRefresh} />
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
         <RowTitleButton
@@ -152,13 +246,14 @@ const HealthDevices = memo(({ route }) => {
                   <Device
                     key={index}
                     data={item}
-                    idDevice={idDevice}
                     onPress={onPressDevice}
+                    isConnected={isAppleHealthConnected}
+                    isConnecting={false}
                   />
                 );
               })}
           </GroupDevices>
-          <GroupDevices title={t('blood_glucose_devices')}>
+          {/* <GroupDevices title={t('blood_glucose_devices')}>
             {!!bloodGlucoseDevices &&
               bloodGlucoseDevices?.map((item, index) => {
                 return (
@@ -186,9 +281,9 @@ const HealthDevices = memo(({ route }) => {
                 );
               })}
           </GroupDevices>
-          <GroupDevices title={t('blood_presure_devices')}>
-            {!!bloodPresureDevices &&
-              bloodPresureDevices?.map((item, index) => {
+          <GroupDevices title={t('blood_pressure_devices')}>
+            {!!bloodPressureDevices &&
+              bloodPressureDevices?.map((item, index) => {
                 return (
                   <Device
                     key={index}
@@ -216,7 +311,7 @@ const HealthDevices = memo(({ route }) => {
                   />
                 );
               })}
-          </GroupDevices>
+          </GroupDevices> */}
         </View>
       </ScrollView>
     </View>

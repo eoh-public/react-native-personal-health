@@ -19,7 +19,7 @@ on:
   status: {}
 jobs:
   automerge:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     steps:
       - name: automerge
         uses: "pascalgn/automerge-action@v0.14.3"

@@ -1,12 +1,20 @@
-import React, { memo } from 'react';
+import React, { memo, useState, useCallback } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { t } from 'i18n-js';
+import { IconFill } from '@ant-design/icons-react-native';
+
 import Text from '../../../commons/Text';
 import styles from './styles';
-import Connected from '../../../../assets/images/PersonalHealth/connect.svg';
+import { Colors } from '../../../configs';
 
-const Device = memo(({ data, onPress, isConnecting, idDevice }) => {
-  const checkConnecting = isConnecting && idDevice === data?.id;
+const Device = memo(({ data, onPress, isConnected }) => {
+  const [isConnecting, setIsConnecting] = useState(false);
+
+  const wrapOnPress = useCallback(async () => {
+    setIsConnecting(true);
+    onPress();
+    setIsConnecting(false);
+  }, [onPress]);
 
   return (
     <View style={styles.Device}>
@@ -16,30 +24,25 @@ const Device = memo(({ data, onPress, isConnecting, idDevice }) => {
         </Text>
       </View>
 
-      {
-        <>
-          {!data?.isConnected && (
-            <TouchableOpacity
-              style={[
-                styles.button,
-                checkConnecting ? styles.isConnecting : styles.connect,
-              ]}
-              onPress={() => onPress(data?.id)}
-              disabled={checkConnecting}
-            >
-              <Text
-                type="Label"
-                style={
-                  checkConnecting ? styles.textConnecting : styles.textConnect
-                }
-              >
-                {checkConnecting ? t('connecting') : t('connect')}
-              </Text>
-            </TouchableOpacity>
-          )}
-          {data?.isConnected && <Connected />}
-        </>
-      }
+      {!isConnecting && isConnected ? (
+        <IconFill name="check-circle" size={24} color={Colors.Primary} />
+      ) : (
+        <TouchableOpacity
+          style={[
+            styles.button,
+            isConnecting ? styles.isConnecting : styles.connect,
+          ]}
+          onPress={wrapOnPress}
+          disabled={isConnecting}
+        >
+          <Text
+            type="Label"
+            style={isConnecting ? styles.textConnecting : styles.textConnect}
+          >
+            {isConnecting ? t('connecting') : t('connect')}
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 });
