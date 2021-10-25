@@ -130,9 +130,11 @@ const HealthConfigDetail = memo(({ route }) => {
   const headerRight = useMemo(
     () => (
       <View style={styles.headerRight}>
-        <TouchableOpacity>
-          <Icon name={'plus'} size={27} color={Colors.Black} />
-        </TouchableOpacity>
+        {config.id && configDetail.value !== null && (
+          <TouchableOpacity>
+            <Icon name={'plus'} size={27} color={Colors.Black} />
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           style={styles.buttonMore}
           ref={refButtonMenuMore}
@@ -188,7 +190,9 @@ const HealthConfigDetail = memo(({ route }) => {
               : `${t('tap_to_input_data')}`}
           </Text>
         </View>
-        {!!configDetail.advices && <AdviceCard data={configDetail} />}
+        {!!configDetail.advices && configDetail.value !== null && (
+          <AdviceCard data={configDetail} />
+        )}
         <RowTitleButton
           title={t('history')}
           titleType="H3"

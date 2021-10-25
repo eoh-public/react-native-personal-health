@@ -13,7 +13,9 @@ import { HEALTH_CONFIG_COLOR_SCHEME } from '../../configs/Constants';
 const HealthConfigItem = memo(({ item }) => {
   const { navigate } = useNavigation();
   const { textColor, borderColor } =
-    HEALTH_CONFIG_COLOR_SCHEME[item.text] || HEALTH_CONFIG_COLOR_SCHEME.null;
+    item.value !== null
+      ? HEALTH_CONFIG_COLOR_SCHEME[item.text || 'null']
+      : HEALTH_CONFIG_COLOR_SCHEME.null;
 
   const goToDetail = useCallback(() => {
     navigate(Routes.HealthConfigDetail, {
@@ -40,7 +42,7 @@ const HealthConfigItem = memo(({ item }) => {
             </TouchableOpacity>
           </View>
           <Text type="Body" color={textColor}>
-            {item.text ? t(`${item.text}`) : t('no_data')}
+            {item.value !== null ? t(`${item.text}`) : t('no_data')}
           </Text>
         </View>
         <View style={styles.rowBottom}>
