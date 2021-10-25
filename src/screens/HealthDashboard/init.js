@@ -1,8 +1,6 @@
-import { t } from 'i18n-js';
-
 export const initData = () => [
   {
-    name: t('heart_rate'),
+    name: 'heart_rate',
     unit: 'BPM',
     value: null,
     min: null,
@@ -10,7 +8,7 @@ export const initData = () => [
     text: null,
   },
   {
-    name: t('blood_pressure'),
+    name: 'blood_pressure',
     unit: 'mg/DL',
     value: null,
     min: null,
@@ -18,7 +16,7 @@ export const initData = () => [
     text: null,
   },
   {
-    name: t('blood_glucose'),
+    name: 'blood_glucose',
     unit: 'mm/Hg',
     value: null,
     min: null,
@@ -26,7 +24,7 @@ export const initData = () => [
     text: null,
   },
   {
-    name: t('spO2'),
+    name: 'spO2',
     unit: '%',
     value: null,
     min: null,
@@ -34,7 +32,7 @@ export const initData = () => [
     text: null,
   },
   {
-    name: t('temperature'),
+    name: 'temperature',
     unit: '°C',
     value: null,
     min: null,
