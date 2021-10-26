@@ -26,8 +26,8 @@ const API = {
     DETAIL: (id) => PHConfig.apiRoot + `/personal_health/health_configs/${id}/`,
     HISTORY: (id) =>
       PHConfig.apiRoot + `/personal_health/health_configs/${id}/history/`,
-    MANUAL_INPUT: (id) =>
-      PHConfig.apiRoot + `/personal_health/health_configs/${id}/manual_input/`,
+    INPUT_VALUE: (id) =>
+      PHConfig.apiRoot + `/personal_health/health_configs/${id}/input_value/`,
   },
   REMINDER: {
     ACTIVE_REMINDERS: () =>

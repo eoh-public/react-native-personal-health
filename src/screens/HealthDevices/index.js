@@ -21,7 +21,7 @@ import styles from './styles';
 import { Colors, API } from '../../configs';
 import { ToastBottomHelper } from '../../utils/Utils';
 import { HEALTH_TYPES } from '../../configs/Constants';
-import { axiosGet } from '../../utils/Apis/axios';
+import { axiosGet, axiosPost } from '../../utils/Apis/axios';
 
 const permissions = {
   permissions: {
@@ -31,6 +31,7 @@ const permissions = {
       AppleHealthKit.Constants.Permissions.BloodGlucose,
       AppleHealthKit.Constants.Permissions.HeartRate,
       AppleHealthKit.Constants.Permissions.BodyTemperature,
+      AppleHealthKit.Constants.Permissions.OxygenSaturation,
     ],
   },
 };
@@ -71,6 +72,15 @@ const arrPromise = [
     AppleHealthKit.getBodyTemperatureSamples(options, (err, data) => {
       resolve({
         type: HEALTH_TYPES.TEMPERATURE,
+        err,
+        data,
+      });
+    });
+  }),
+  new Promise((resolve) => {
+    AppleHealthKit.getOxygenSaturationSamples(options, (err, data) => {
+      resolve({
+        type: HEALTH_TYPES.SPO2,
         err,
         data,
       });
@@ -163,20 +173,26 @@ const HealthDevices = memo(({ route }) => {
     Alert.alert(t('feature_under_development'));
   }, []);
 
+  const storeValueToConfig = useCallback(async (config, value) => {
+    if (config.name === HEALTH_TYPES.SPO2 && value <= 1) {
+      value = value * 100;
+    }
+    await axiosPost(API.HEALTH_CONFIG.INPUT_VALUE(config.id), {
+      value: parseFloat(value).toFixed(2),
+    });
+  }, []);
+
   const getData = useCallback(async () => {
     const { data } = await axiosGet(API.HEALTH_CONFIG.LIST()); // TODO use redux
     await Promise.all(arrPromise).then((values) => {
       values.map((value) => {
         if (value.data.length > 0) {
-          // eslint-disable-next-line no-unused-vars
           const config = data.find((x) => x.name === value.type);
-          // console.log('value', value)
-          // console.log('config', config)
-          //  TODO store value to responding config
+          storeValueToConfig(config, value.data[0].value);
         }
       });
     });
-  }, []);
+  }, [storeValueToConfig]);
 
   const initHealthKit = useCallback(async () => {
     AppleHealthKit.initHealthKit(permissions, (error) => {

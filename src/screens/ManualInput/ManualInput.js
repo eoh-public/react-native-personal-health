@@ -24,7 +24,7 @@ const ManualInput = memo(({ route }) => {
       return;
     }
     const { success } = await axiosPost(
-      API.HEALTH_CONFIG.MANUAL_INPUT(config.id),
+      API.HEALTH_CONFIG.INPUT_VALUE(config.id),
       { value }
     );
     success && goBack();
