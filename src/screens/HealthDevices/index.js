@@ -173,9 +173,12 @@ const HealthDevices = memo(({ route }) => {
     Alert.alert(t('feature_under_development'));
   }, []);
 
-  const storeValueToConfig = useCallback(async (config, value) => {
-    if (config.name === HEALTH_TYPES.SPO2 && value <= 1) {
-      value = value * 100;
+  const storeValueToConfig = useCallback(async (config, data) => {
+    let value = data.value;
+    if (config.name === HEALTH_TYPES.SPO2 && data.value <= 1) {
+      value = data.value * 100;
+    } else if (config.name === HEALTH_TYPES.BLOOD_PRESSURE) {
+      value = data.bloodPressureSystolicValue;
     }
     await axiosPost(API.HEALTH_CONFIG.INPUT_VALUE(config.id), {
       value: parseFloat(value).toFixed(2),
@@ -188,7 +191,7 @@ const HealthDevices = memo(({ route }) => {
       values.map((value) => {
         if (value.data.length > 0) {
           const config = data.find((x) => x.name === value.type);
-          storeValueToConfig(config, value.data[0].value);
+          storeValueToConfig(config, value.data[0]);
         }
       });
     });
