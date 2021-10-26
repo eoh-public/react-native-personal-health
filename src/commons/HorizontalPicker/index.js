@@ -9,6 +9,7 @@ import React, {
 import { View, Animated } from 'react-native';
 import { Constants, Colors } from '../../configs';
 import { linearIntepolate } from './helper';
+import { arrayRange } from '../../utils/Array';
 import Text from '../Text';
 import styles from './styles';
 
@@ -21,6 +22,7 @@ const HorizontalPicker = ({
   maximum = 100,
   segmentSpacing = 20,
   step = 10,
+  childStep = 1,
   stepColor = Colors.Gray7,
   stepHeight = 40,
   stepWidth = 2,
@@ -28,19 +30,20 @@ const HorizontalPicker = ({
   normalHeight = 20,
   normalWidth = 2,
   indicatorWidth = 12,
+  forceUpdate,
+  onUpdated,
   style,
   value = 0,
 }) => {
   const scrollViewRef = useRef();
   const [scrollX] = useState(new Animated.Value(0));
-
-  const spacerWidth = (width - stepWidth) / 2;
-  let time = useMemo(() => minimum, [minimum]);
+  const time = useMemo(() => minimum, [minimum]);
+  const [dragStarted, setDragStarted] = useState(false);
 
   const valueScrollXMaps = useMemo(() => {
     const maps = [];
     let scrollX = 0;
-    for (let i = minimum; i <= maximum; i++) {
+    for (let i = minimum; i <= maximum; i += childStep) {
       if (i % step === 0) {
         maps.push({
           scrollX: scrollX + stepWidth / 2,
@@ -59,18 +62,20 @@ const HorizontalPicker = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getValueFromScrollX = useCallback(
+  const getNearestPoint = useCallback(
     (scrollXValue) => {
-      const realScrollXValue = scrollXValue + indicatorWidth / 2;
+      const realScrollX = scrollXValue + indicatorWidth / 2;
       for (let i = 0; i < valueScrollXMaps.length; i++) {
-        if (Math.abs(valueScrollXMaps[i].scrollX - realScrollXValue) <= 2) {
-          return valueScrollXMaps[i].value;
+        if (Math.abs(valueScrollXMaps[i].scrollX - realScrollX) <= 2) {
+          return valueScrollXMaps[i];
         }
-        if (valueScrollXMaps[i].scrollX > realScrollXValue) {
-          const x = realScrollXValue;
-          const { scrollX: x1, value: y1 } = valueScrollXMaps[i - 1];
-          const { scrollX: x2, value: y2 } = valueScrollXMaps[i];
-          return linearIntepolate(x1, x2, y1, y2, x);
+        if (valueScrollXMaps[i].scrollX > realScrollX) {
+          const firstPoint = valueScrollXMaps[i - 1];
+          const secondPoint = valueScrollXMaps[i];
+          return Math.abs(firstPoint.scrollX, realScrollX) <
+            Math.abs(secondPoint.scrollX, realScrollX)
+            ? firstPoint
+            : secondPoint;
         }
       }
     },
@@ -80,9 +85,6 @@ const HorizontalPicker = ({
   const getScrollXFromValue = useCallback(
     (inputValue) => {
       for (let i = 0; i < valueScrollXMaps.length; i++) {
-        if (Math.abs(valueScrollXMaps[i].value - inputValue) < 1) {
-          return valueScrollXMaps[i].scrollX;
-        }
         if (valueScrollXMaps[i].value > inputValue) {
           const x = inputValue;
           const { value: x1, scrollX: y1 } = valueScrollXMaps[i - 1];
@@ -94,10 +96,40 @@ const HorizontalPicker = ({
     [valueScrollXMaps]
   );
 
+  const getScrollXForScroll = useCallback(
+    (value, scrollX) => {
+      if (value % step === 0) {
+        return scrollX - stepWidth / 2 - (indicatorWidth - stepWidth) / 2;
+      } else {
+        return scrollX - normalWidth / 2 - (indicatorWidth - normalWidth) / 2;
+      }
+    },
+    [step, stepWidth, normalWidth, indicatorWidth]
+  );
+
+  const onMomentumScrollEnd = useCallback(
+    (e) => {
+      if (!dragStarted && e.nativeEvent?.contentOffset) {
+        const scrollX = e.nativeEvent.contentOffset.x;
+        const nearestPoint = getNearestPoint(scrollX);
+        const x = getScrollXForScroll(nearestPoint.value, nearestPoint.scrollX);
+        scrollViewRef.current.scrollTo({ x });
+      }
+    },
+    [dragStarted, getNearestPoint, getScrollXForScroll, scrollViewRef]
+  );
+
+  const onScrollBeginDrag = useCallback(() => {
+    setDragStarted(true);
+  }, []);
+
+  const onScrollEndDrag = useCallback(() => {
+    setDragStarted(false);
+  }, []);
+
   const renderTime = useMemo(() => {
-    const data = [...Array(maximum - minimum + 1).keys()].map(
-      (i) => i + minimum
-    );
+    const data = arrayRange(minimum, maximum, childStep);
+    const spacerWidth = (width - stepWidth) / 2;
     return (
       <View style={styles.wrap}>
         <View
@@ -133,7 +165,7 @@ const HorizontalPicker = ({
         })}
         <View
           style={{
-            width: (width - stepWidth) / 2,
+            width: spacerWidth,
           }}
         />
       </View>
@@ -141,38 +173,49 @@ const HorizontalPicker = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maximum, minimum, time]);
 
+  const renderIndicator = useMemo(
+    () => (
+      <View style={styles.indicator} pointerEvents="none">
+        <View style={[styles.childIndicator, { width: indicatorWidth }]} />
+      </View>
+    ),
+    [indicatorWidth]
+  );
+
   useEffect(() => {
     const scrollListener = scrollX.addListener(({ value }) => {
-      canChangeValue &&
-        onChangeValue &&
-        onChangeValue(getValueFromScrollX(value));
+      if (canChangeValue && onChangeValue) {
+        const nearestPoint = getNearestPoint(value);
+        onChangeValue(nearestPoint.value);
+      }
     });
     return () => scrollX.removeListener(scrollListener);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (!canChangeValue && scrollViewRef && scrollViewRef.current) {
+    if (forceUpdate) {
+      canChangeValue = false;
+    }
+  }, [forceUpdate]);
+
+  useEffect(() => {
+    if (!canChangeValue && scrollViewRef?.current) {
       const to1 = setTimeout(() => {
         const scrollX = getScrollXFromValue(value);
-
-        let x;
-        if (value % step === 0) {
-          x = scrollX - stepWidth / 2 - (indicatorWidth - stepWidth) / 2;
-        } else {
-          x = scrollX - normalWidth / 2 - (indicatorWidth - normalWidth) / 2;
-        }
-
+        const x = getScrollXForScroll(value, scrollX);
         scrollViewRef.current.scrollTo({ x });
         clearTimeout(to1);
       }, 300);
+
       const to2 = setTimeout(() => {
         canChangeValue = true;
+        onUpdated && onUpdated();
         clearTimeout(to2);
       }, 1000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, canChangeValue, scrollViewRef]);
+  }, [value, canChangeValue, onUpdated, scrollViewRef]);
 
   useEffect(() => {
     return () => (canChangeValue = false);
@@ -187,6 +230,9 @@ const HorizontalPicker = ({
         bounces={false}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
+        onMomentumScrollEnd={onMomentumScrollEnd}
+        onScrollBeginDrag={onScrollBeginDrag}
+        onScrollEndDrag={onScrollEndDrag}
         onScroll={Animated.event(
           [
             {
@@ -201,9 +247,7 @@ const HorizontalPicker = ({
         {renderTime}
       </Animated.ScrollView>
 
-      <View style={styles.indicator} pointerEvents="none">
-        <View style={[styles.childIndicator, { width: indicatorWidth }]} />
-      </View>
+      {renderIndicator}
     </View>
   );
 };

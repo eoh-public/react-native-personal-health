@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../../configs';
+import { Colors, Fonts } from '../../../configs';
 import { getStatusBarHeight } from '../../../configs/Constants';
 
 export default StyleSheet.create({
@@ -27,16 +27,32 @@ export default StyleSheet.create({
   wrapValue: {
     flexDirection: 'row',
   },
+  wrapTextInput: {
+    marginHorizontal: 16,
+    alignItems: 'center',
+  },
+  textInput: {
+    marginTop: 0,
+    borderWidth: 0,
+    borderRadius: 0,
+    paddingTop: 0,
+    paddingBottom: 16,
+    color: Colors.Gray9,
+    fontFamily: Fonts.Bold,
+    fontSize: 48,
+    lineHeight: 64,
+    textAlign: 'center',
+  },
+  textValue: {
+    fontSize: 48,
+    lineHeight: 57,
+  },
   wrapUnit: {
     position: 'relative',
   },
   textConfigName: {
     position: 'absolute',
     top: 60,
-  },
-  textValue: {
-    fontSize: 48,
-    lineHeight: 57,
   },
   textUnit: {
     position: 'absolute',

@@ -23,6 +23,7 @@
   "reports_log": "Báo cáo",
   "connect_devices": "Kết nối thiết bị",
   "manual_input": "Nhập dữ liệu",
+  "error_limit_value": "Giá trị phải từ %{min} đến %{max}",
   "drink_water": "Uống nhiều nước mội ngày",
   "add_more_fiber": "Thêm chất dinh dưỡng",
   "reasonable_diet": "Ăn kiêng hợp lý",

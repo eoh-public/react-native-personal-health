@@ -5,6 +5,7 @@ import usePopover from './usePopover';
 import useTitleHeader from './useTitleHeader';
 import useControllList from './useControllList';
 import useToggle from './useToggle';
+import useKeyboardAnimated from './useKeyboardAnimated';
 import { useBlockBackAndroid } from './useBlockBackAndroid';
 
 export {
@@ -15,5 +16,6 @@ export {
   useTitleHeader,
   useControllList,
   useToggle,
+  useKeyboardAnimated,
   useBlockBackAndroid,
 };

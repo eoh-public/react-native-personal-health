@@ -23,6 +23,7 @@
   "reports_log": "Reports Log",
   "connect_devices": "Connect Devices",
   "manual_input": "Manual Input",
+  "error_limit_value": "Value must be from %{min} to %{max}",
   "protection_advices_for_today": "Protection Advices for today!",
   "drink_water": "Drink lots of water everyday",
   "add_more_fiber": "Add more fiber",
