@@ -1,4 +1,4 @@
-export const initData = () => [
+export const initConfigData = () => [
   {
     name: 'heart_rate',
     unit: 'BPM',

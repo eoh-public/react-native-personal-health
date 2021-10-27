@@ -1,4 +1,10 @@
-import React, { memo, useEffect, useState, useCallback } from 'react';
+import React, {
+  memo,
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+} from 'react';
 import {
   TouchableOpacity,
   View,
@@ -16,8 +22,9 @@ import RowTitleButton from '../../commons/RowTitleButton';
 import HealthConfigItem from './HealthConfigItem';
 import ReminderCard from './ReminderCard';
 import styles from './styles/healthDashboardStyles';
-import { initData } from './init';
 import { API } from '../../configs';
+import { PHContext, usePHSelector } from '../../context';
+import { Actions } from '../../context/actionType';
 
 const HealthDashboard = memo(({ route }) => {
   const navigation = useNavigation();
@@ -25,30 +32,30 @@ const HealthDashboard = memo(({ route }) => {
   useBlockBackAndroid();
 
   const [refreshing, setRefreshing] = useState(false);
-  const [configs, setConfigs] = useState(initData());
+  const { healthConfigs } = usePHSelector((state) => state.dashboard);
   const [reminders, setReminders] = useState([]);
+  const { setAction } = useContext(PHContext);
 
   const fetchConfigs = useCallback(async () => {
     setRefreshing(true);
     const { data, success } = await axiosGet(API.HEALTH_CONFIG.LIST());
-
     if (success && data.length > 0) {
-      setConfigs(data);
+      setAction(Actions.SET_HEALTH_CONFIGS, data);
     } else {
       const { data, success } = await axiosPost(
         API.HEALTH_CONFIG.CREATE_HEALTH_CHIP()
       );
-      success && setConfigs(data);
+      if (success) {
+        setAction(Actions.SET_HEALTH_CONFIGS, data);
+      }
     }
-
     setRefreshing(false);
-  }, [setConfigs, setRefreshing]);
+  }, [setRefreshing, setAction]);
 
   const fetchActiveReminders = useCallback(async () => {
     setRefreshing(true);
     const { data, success } = await axiosGet(API.REMINDER.ACTIVE_REMINDERS());
     success && setReminders(data);
-
     setRefreshing(false);
   }, [setReminders, setRefreshing]);
 
@@ -104,7 +111,7 @@ const HealthDashboard = memo(({ route }) => {
           onPress={onPressShareAll}
         />
         <View style={styles.boxReports}>
-          {configs.map((item, index) => (
+          {healthConfigs.map((item, index) => (
             <HealthConfigItem key={index} item={item} />
           ))}
         </View>

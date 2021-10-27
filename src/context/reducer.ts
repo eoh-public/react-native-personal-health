@@ -1,5 +1,12 @@
 import { initData } from '../utils/InitData';
-import { Actions, ActionType, AuthData, Language } from './actionType';
+import {
+  Actions,
+  ActionType,
+  AuthData,
+  Language,
+  HealthConfig,
+} from './actionType';
+import { initConfigData } from '../screens/HealthDashboard/init';
 
 export type ContextData = {
   auth: AuthData;
@@ -8,6 +15,10 @@ export type ContextData = {
     language: Language;
     loading: boolean;
     exitApp: boolean;
+  };
+
+  dashboard: {
+    healthConfigs: HealthConfig[];
   };
 };
 
@@ -28,6 +39,9 @@ export const initialState: ContextData = {
     language: 'en' as Language,
     loading: false,
     exitApp: false,
+  },
+  dashboard: {
+    healthConfigs: initConfigData(),
   },
 };
 
@@ -55,6 +69,13 @@ export const reducer = (
       return {
         ...currentState,
         app: { ...currentState.app, exitApp: payload },
+      };
+    case Actions.SET_HEALTH_CONFIGS:
+      return {
+        ...currentState,
+        dashboard: {
+          healthConfigs: payload,
+        },
       };
     default:
       return currentState;

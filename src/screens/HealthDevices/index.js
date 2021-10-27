@@ -21,7 +21,8 @@ import styles from './styles';
 import { Colors, API } from '../../configs';
 import { ToastBottomHelper } from '../../utils/Utils';
 import { HEALTH_TYPES } from '../../configs/Constants';
-import { axiosGet, axiosPost } from '../../utils/Apis/axios';
+import { axiosPost } from '../../utils/Apis/axios';
+import { usePHSelector } from '../../context';
 
 const permissions = {
   permissions: {
@@ -92,6 +93,7 @@ const HealthDevices = memo(({ route }) => {
   const { goBack } = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
   const [isAppleHealthConnected, setIsAppleHealthConnected] = useState(false);
+  const { healthConfigs } = usePHSelector((state) => state.dashboard);
 
   const dataSmartDevices = useMemo(() => {
     if (Platform.OS === 'android') {
@@ -186,16 +188,15 @@ const HealthDevices = memo(({ route }) => {
   }, []);
 
   const getData = useCallback(async () => {
-    const { data } = await axiosGet(API.HEALTH_CONFIG.LIST()); // TODO use redux
     await Promise.all(arrPromise).then((values) => {
       values.map((value) => {
         if (value.data.length > 0) {
-          const config = data.find((x) => x.name === value.type);
+          const config = healthConfigs.find((x) => x.name === value.type);
           storeValueToConfig(config, value.data[0]);
         }
       });
     });
-  }, [storeValueToConfig]);
+  }, [storeValueToConfig, healthConfigs]);
 
   const initHealthKit = useCallback(async () => {
     AppleHealthKit.initHealthKit(permissions, (error) => {
