@@ -33,6 +33,9 @@ const API = {
     ACTIVE_REMINDERS: () =>
       PHConfig.apiRoot + '/personal_health/reminders/active_reminders/',
   },
+  HOSPITAL: {
+    LIST: () => 'https://api-stag.iparamed.com/hospitals/',
+  },
   BILLING: {
     LIST_PAYMENT_METHODS_BY_COUNTRY: (code) =>
       PHConfig.apiRoot + `/billing/list-methods/${code}/`,

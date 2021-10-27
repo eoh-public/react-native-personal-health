@@ -5,6 +5,7 @@ const PHDefaultConfig = {
     'pk_test_51H2eNHDKEhTHCCCWkF3ZIL8bAd6J1DFNEUU9fuZgolNrbLP5lYVTb5DfWoiGLOI21dI0TZNQ7L2BkBVSKpZqyje100DN1MTlAO',
   pusherAppKey: '6e493d00ec2aa6b5276d',
   pusherAppCluster: 'ap1',
+  iparamedApiToken: '5d073f2d2090532304540a241ceca5967144b879',
   maxSeconds: 900,
 };
 
@@ -26,5 +27,7 @@ export const initPHConfig = (config) => {
   PHConfig.pusherAppKey = config.pusherAppKey ?? PHDefaultConfig.pusherAppKey;
   PHConfig.pusherAppCluster =
     config.pusherAppCluster ?? PHDefaultConfig.pusherAppCluster;
+  PHConfig.iparamedApiToken =
+    config.iparamedApiToken ?? PHDefaultConfig.iparamedApiToken;
   PHConfig.maxSeconds = config.maxSeconds ?? PHDefaultConfig.maxSeconds;
 };

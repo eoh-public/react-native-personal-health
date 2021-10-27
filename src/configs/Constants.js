@@ -112,6 +112,11 @@ const HEALTH_CONFIG_MIN_MAX = {
   },
 };
 
+export const HOSPITAL = {
+  address: '298 Điện Biên Phủ, phường 17, quận Bình Thạnh, TP.HCM',
+  price: 200000,
+};
+
 export const getHealthConfigMinMax = (name) => {
   const healthConfig = HEALTH_CONFIG_MIN_MAX[name];
   const min = healthConfig ? healthConfig.min : 0;
