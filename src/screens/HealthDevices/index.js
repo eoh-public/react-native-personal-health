@@ -237,12 +237,7 @@ const HealthDevices = memo(({ route }) => {
 
   return (
     <View style={styles.container}>
-      <Header
-        hasBack
-        goBack={goBack}
-        rightComponent={headerRight}
-        wrapStyle={styles.header}
-      />
+      <Header hasBack goBack={goBack} rightComponent={headerRight} />
       <ScrollView
         contentContainerStyle={styles.scrollview}
         refreshControl={

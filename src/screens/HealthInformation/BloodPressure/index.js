@@ -66,7 +66,6 @@ const BloodPressureInfo = ({ route }) => {
         title={t('blood_pressure')}
         hasBack
         goBack={goBack}
-        wrapStyle={styles.header}
         buttonBackStyle={styles.buttonBack}
         wrapTitleStyle={styles.wrapTitle}
       />

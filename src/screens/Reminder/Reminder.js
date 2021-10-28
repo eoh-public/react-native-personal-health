@@ -62,7 +62,6 @@ const Reminder = memo(({ route }) => {
             <IconOutline name="plus" size={24} />
           </TouchableOpacity>
         }
-        wrapStyle={styles.header}
       />
       <ScrollView contentContainerStyle={styles.scrollview}>
         <RowTitleButton

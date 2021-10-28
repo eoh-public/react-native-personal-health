@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../../configs';
-import { getStatusBarHeight } from '../../../configs/Constants';
 
 export default StyleSheet.create({
   container: {
@@ -12,8 +11,9 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingBottom: 8,
-    paddingTop: getStatusBarHeight() + 10,
+  },
+  button: {
+    paddingVertical: 14,
   },
   rowTitle: {
     marginTop: 32,

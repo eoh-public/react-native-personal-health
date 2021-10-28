@@ -16,12 +16,14 @@ import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { t } from 'i18n-js';
 
-import { axiosPost, axiosGet } from '../../utils/Apis/axios';
-import { useBlockBackAndroid } from '../../hooks/Common';
+import Header from '../../commons/Header';
 import RowTitleButton from '../../commons/RowTitleButton';
 import HealthConfigItem from './HealthConfigItem';
 import ReminderCard from './ReminderCard';
+import { useBlockBackAndroid } from '../../hooks/Common';
+
 import styles from './styles/healthDashboardStyles';
+import { axiosPost, axiosGet } from '../../utils/Apis/axios';
 import { API } from '../../configs';
 import { PHContext, usePHSelector } from '../../context';
 import { Actions } from '../../context/actionType';
@@ -84,14 +86,19 @@ const HealthDashboard = memo(({ route }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={onPressMenu}>
-          <IconOutline name="menu" size={24} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onPressBell}>
-          <IconOutline name="bell" size={24} />
-        </TouchableOpacity>
-      </View>
+      <Header
+        wrapStyle={styles.header}
+        leftComponent={
+          <TouchableOpacity onPress={onPressMenu} style={styles.button}>
+            <IconOutline name="menu" size={24} />
+          </TouchableOpacity>
+        }
+        rightComponent={
+          <TouchableOpacity onPress={onPressBell} style={styles.button}>
+            <IconOutline name="bell" size={24} />
+          </TouchableOpacity>
+        }
+      />
       <ScrollView
         contentContainerStyle={styles.scrollview}
         refreshControl={

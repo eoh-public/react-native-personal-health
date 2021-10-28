@@ -86,12 +86,7 @@ const AddEditSchedule = ({ route }) => {
   return (
     <>
       <View style={styles.container}>
-        <Header
-          hasBack
-          goBack={goBack}
-          rightComponent={headerRight}
-          wrapStyle={styles.header}
-        />
+        <Header hasBack goBack={goBack} rightComponent={headerRight} />
         <ScrollView contentContainerStyle={styles.scollView}>
           <Text type="H2" bold style={styles.title}>
             {type === 'add' ? t('add_schedule') : t('edit_schedule')}

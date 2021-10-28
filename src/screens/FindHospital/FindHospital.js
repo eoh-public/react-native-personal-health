@@ -1,8 +1,10 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import { View, FlatList, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { IconOutline } from '@ant-design/icons-react-native';
 
 import Text from '../../commons/Text';
+import Header from '../../commons/Header';
 import SearchBar from './SearchBar';
 import HospitalItem from './HospitalItem';
 
@@ -13,6 +15,7 @@ import Marker from '../../../assets/images/Common/marker.svg';
 import useHospitals from './hooks';
 
 const FindHospital = memo(() => {
+  const { goBack } = useNavigation();
   const [search, setSearch] = useState('');
   const { hospitals, refreshing, onRefresh } = useHospitals();
 
@@ -27,6 +30,7 @@ const FindHospital = memo(() => {
 
   return (
     <View style={styles.container}>
+      <Header hasBack goBack={goBack} />
       <View style={styles.row}>
         <Marker />
         <Text

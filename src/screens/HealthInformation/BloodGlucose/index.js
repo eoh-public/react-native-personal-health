@@ -14,7 +14,6 @@ const BloodGlucoseInfo = ({ route }) => {
         title={t('blood_glucose_info')}
         hasBack
         goBack={goBack}
-        wrapStyle={styles.header}
         buttonBackStyle={styles.buttonBack}
         wrapTitleStyle={styles.wrapTitle}
       />

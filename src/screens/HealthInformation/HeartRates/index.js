@@ -14,7 +14,6 @@ const HeartRatesInfo = ({ route }) => {
         title={t('heart_rates_info')}
         hasBack
         goBack={goBack}
-        wrapStyle={styles.header}
         buttonBackStyle={styles.buttonBack}
         wrapTitleStyle={styles.wrapTitle}
       />

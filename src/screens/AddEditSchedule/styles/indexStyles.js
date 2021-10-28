@@ -1,12 +1,7 @@
 import { StyleSheet } from 'react-native';
-
 import { Colors } from '../../../configs';
-import { getStatusBarHeight } from '../../../configs/Constants';
 
 export default StyleSheet.create({
-  header: {
-    paddingTop: getStatusBarHeight(),
-  },
   headerRight: {
     paddingRight: 21,
     paddingVertical: 14,

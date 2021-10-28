@@ -10,12 +10,15 @@ import HeaderDrawer from '../../commons/HeaderDrawer';
 import { VersionText } from '../../commons/VersionText';
 import Routes from '../../utils/Route';
 
-import Account from '../../../assets/images/Drawer/account.svg';
-import Hub from '../../../assets/images/Drawer/hub.svg';
-import Report from '../../../assets/images/Drawer/report.svg';
-import Reminder from '../../../assets/images/Drawer/reminder.svg';
-import Setting from '../../../assets/images/Drawer/setting.svg';
-import TermAndConditions from '../../../assets/images/Drawer/term-conditions.svg';
+import {
+  SvgAccount,
+  SvgHub,
+  SvgReminder,
+  SvgReport,
+  SvgSetting,
+  SvgPaymentMethod,
+  SvgTermConditions,
+} from '../../../assets/images/Drawer';
 
 const PersonalHealthDrawer = memo(() => {
   const data = useMemo(
@@ -23,31 +26,43 @@ const PersonalHealthDrawer = memo(() => {
       {
         id: '0',
         route: Routes.AccountSetting,
-        leftImage: <Account />,
+        leftImage: <SvgAccount />,
         name: t('account_setting'),
       },
       {
         id: '1',
         route: Routes.HealthDevices,
-        leftImage: <Hub />,
+        leftImage: <SvgHub />,
         name: t('health_devices'),
       },
       {
         id: '2',
         route: null,
-        leftImage: <Report />,
-        name: t('report_logs'),
+        leftImage: <SvgReport />,
+        name: t('booking_details'),
       },
       {
         id: '3',
-        route: Routes.Reminder,
-        leftImage: <Reminder />,
-        name: t('reminder'),
+        route: Routes.FindHospital,
+        leftImage: <SvgReport />,
+        name: t('hospitals'),
       },
       {
         id: '4',
+        route: Routes.Reminder,
+        leftImage: <SvgReminder />,
+        name: t('reminder'),
+      },
+      {
+        id: '5',
         route: null,
-        leftImage: <Setting />,
+        leftImage: <SvgPaymentMethod />,
+        name: t('payment_method'),
+      },
+      {
+        id: '6',
+        route: null,
+        leftImage: <SvgSetting />,
         name: t('system_setting'),
       },
     ],
@@ -56,7 +71,7 @@ const PersonalHealthDrawer = memo(() => {
 
   return (
     <View style={styles.container}>
-      <ScrollView bounces={false}>
+      <ScrollView bounces={false} contentContainerStyle={styles.scrollView}>
         <HeaderDrawer />
         <View style={styles.wrapMenu}>
           {data.map((item) => (
@@ -67,7 +82,7 @@ const PersonalHealthDrawer = memo(() => {
       <View style={styles.groupBottom}>
         <RowDrawer
           route={null}
-          leftImage={<TermAndConditions />}
+          leftImage={<SvgTermConditions />}
           name={t('terms_and_conditions')}
           borderTop
         />
@@ -89,16 +104,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.White,
-    paddingTop: getStatusBarHeight(true),
+    paddingTop: getStatusBarHeight() + 10,
+  },
+  scrollView: {
+    paddingBottom: 60,
   },
   wrapMenu: {
     paddingHorizontal: 28,
   },
   groupBottom: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    marginTop: 16,
     marginHorizontal: 28,
   },
 });

@@ -1,14 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { Colors, Fonts } from '../../../configs';
-import { getStatusBarHeight } from '../../../configs/Constants';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.White,
-  },
-  header: {
-    paddingTop: getStatusBarHeight() + 10,
   },
   wrapTitleStyle: {
     alignItems: 'flex-start',

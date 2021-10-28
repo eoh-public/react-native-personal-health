@@ -90,7 +90,6 @@ const ManualInput = memo(({ route }) => {
         hasBack
         goBack={goBack}
         title={t('new_data')}
-        wrapStyle={styles.header}
         wrapTitleStyle={styles.wrapTitleStyle}
         titleStyle={styles.titleStyle}
       />

@@ -14,7 +14,6 @@ const UpdatingInfo = ({ route }) => {
         title={t('information')}
         hasBack
         goBack={goBack}
-        wrapStyle={styles.header}
         buttonBackStyle={styles.buttonBack}
         wrapTitleStyle={styles.wrapTitle}
       />

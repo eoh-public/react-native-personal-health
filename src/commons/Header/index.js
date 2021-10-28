@@ -5,6 +5,7 @@ import Text from '../Text';
 import { Colors } from '../../configs';
 
 import BackDefault from '../BackDefault';
+import { getStatusBarHeight } from '../../configs/Constants';
 
 const Header = ({
   hasBack,
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: Colors.White,
     alignItems: 'center',
+    paddingTop: getStatusBarHeight() + 10,
   },
   titleWrap: {
     flex: 1,

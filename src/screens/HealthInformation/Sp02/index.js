@@ -24,7 +24,6 @@ const Spo2Info = ({ route }) => {
         title={t('spo2_info')}
         hasBack
         goBack={goBack}
-        wrapStyle={styles.header}
         buttonBackStyle={styles.buttonBack}
         wrapTitleStyle={styles.wrapTitle}
       />
