@@ -1,4 +1,4 @@
-import React, { memo, useState, useRef, useCallback } from 'react';
+import React, { memo, useState, useRef, useCallback, useEffect } from 'react';
 import { TouchableOpacity, View, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { IconOutline } from '@ant-design/icons-react-native';
@@ -14,12 +14,15 @@ import { usePopover } from '../../hooks/Common';
 import Header from '../../commons/Header';
 import { ReminderItem } from './ReminderItem';
 import { ReminderAddNew } from './ReminderAddNew';
+import { axiosGet } from '../../utils/Apis/axios';
+import { API } from '../../configs';
 
 const Reminder = memo(({ route }) => {
   const { goBack } = useNavigation();
   useBlockBackAndroid();
 
   const [tabIndex] = useState(2);
+  const [reminders, setReminders] = useState([]);
 
   const { childRef, showingPopover, showPopoverWithRef, hidePopover } =
     usePopover();
@@ -37,6 +40,17 @@ const Reminder = memo(({ route }) => {
   const onPressMore = useCallback(() => {
     showPopoverWithRef(buttonMoreRef);
   }, [showPopoverWithRef]);
+
+  const fetchListReminder = useCallback(async () => {
+    const { success, data } = await axiosGet(API.REMINDER.LIST());
+    if (success) {
+      setReminders(data);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchListReminder();
+  }, [fetchListReminder]);
 
   return (
     <View style={styles.container}>
@@ -95,18 +109,15 @@ const Reminder = memo(({ route }) => {
             </Text>
           </TouchableOpacity>
         </ScrollView>
-        <ReminderItem
-          title="Reminder 1"
-          description={'Blood Glucose, Heart Rates, \nBlood Pressure'}
-          onPressMore={onPressMore}
-          buttonMoreRef={buttonMoreRef}
-        />
-        <ReminderItem
-          title="Reminder 2"
-          description="All Health Data"
-          onPressMore={onPressMore}
-          buttonMoreRef={buttonMoreRef}
-        />
+        {reminders.map((item) => (
+          <ReminderItem
+            key={`REMINDER_${item.id}`}
+            title={item.name}
+            description={item.health_data.map((option) => t(option)).join(', ')}
+            onPressMore={onPressMore}
+            buttonMoreRef={buttonMoreRef}
+          />
+        ))}
         <ReminderAddNew />
       </ScrollView>
       <MoreMenu

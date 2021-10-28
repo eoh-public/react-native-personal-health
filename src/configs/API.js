@@ -32,6 +32,7 @@ const API = {
   REMINDER: {
     ACTIVE_REMINDERS: () =>
       PHConfig.apiRoot + '/personal_health/reminders/active_reminders/',
+    LIST: () => PHConfig.apiRoot + '/personal_health/reminders/',
   },
   HOSPITAL: {
     LIST: () => 'https://api-stag.iparamed.com/hospitals/',
