@@ -40,7 +40,7 @@ const PersonalHealthDrawer = memo(() => {
       },
       {
         id: '3',
-        route: null,
+        route: Routes.Reminder,
         leftImage: <Reminder />,
         name: t('reminder'),
       },

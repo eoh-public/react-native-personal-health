@@ -12,6 +12,7 @@ import HealthConfigDetail from '../screens/HealthConfig/Detail';
 import AddEditSchedule from '../screens/AddEditSchedule';
 import ManualInput from '../screens/ManualInput/ManualInput';
 import AccountSetting from '../screens/AccountSetting';
+import Reminder from '../screens/Reminder/Reminder';
 import HealthInformation from '../screens/HealthInformation';
 import HealthDevices from '../screens/HealthDevices';
 import FindHospital from '../screens/FindHospital/FindHospital';
@@ -68,6 +69,11 @@ export const PersonalHealthStack = memo(() => {
         ...screenOptionsAccountSetting,
       }}
     >
+      <Drawer.Screen
+        name={Routes.Reminder}
+        component={Reminder}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name={Routes.PersonalHealthMapDrawer}
         component={MapDrawer}

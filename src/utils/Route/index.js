@@ -9,6 +9,7 @@ const Routes = {
   AddEditSchedule: 'AddEditSchedule',
   HealthInformation: 'HealthInformation',
   HealthDevices: 'HealthDevices',
+  Reminder: 'Reminder',
   FindHospital: 'FindHospital',
 };
 
