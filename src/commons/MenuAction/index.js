@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import Popover from 'react-native-popover-view';
 import styles from './styles';
 
@@ -36,11 +36,16 @@ const MenuAction = memo(
         arrowStyle={styles.arrow}
         backgroundStyle={backgroundStyle}
       >
-        {listMenuItem.map((item, index) => (
-          <TouchableOpacity onPress={() => handleOnItemClick(item)} key={index}>
-            {renderItem(item)}
-          </TouchableOpacity>
-        ))}
+        <View style={styles.menu}>
+          {listMenuItem.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => handleOnItemClick(item)}
+            >
+              {renderItem(item)}
+            </TouchableOpacity>
+          ))}
+        </View>
       </Popover>
     );
   }

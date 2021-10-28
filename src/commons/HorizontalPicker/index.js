@@ -66,18 +66,19 @@ const HorizontalPicker = ({
     (scrollXValue) => {
       const realScrollX = scrollXValue + indicatorWidth / 2;
       for (let i = 0; i < valueScrollXMaps.length; i++) {
-        if (Math.abs(valueScrollXMaps[i].scrollX - realScrollX) <= 2) {
-          return valueScrollXMaps[i];
-        }
-        if (valueScrollXMaps[i].scrollX > realScrollX) {
+        if (valueScrollXMaps[i].scrollX >= realScrollX) {
+          if (i === 0) {
+            return valueScrollXMaps[i];
+          }
           const firstPoint = valueScrollXMaps[i - 1];
           const secondPoint = valueScrollXMaps[i];
-          return Math.abs(firstPoint.scrollX, realScrollX) <
-            Math.abs(secondPoint.scrollX, realScrollX)
+          return Math.abs(firstPoint.scrollX - realScrollX) <
+            Math.abs(secondPoint.scrollX - realScrollX)
             ? firstPoint
             : secondPoint;
         }
       }
+      return valueScrollXMaps[valueScrollXMaps.length - 1];
     },
     [valueScrollXMaps, indicatorWidth]
   );
@@ -85,7 +86,10 @@ const HorizontalPicker = ({
   const getScrollXFromValue = useCallback(
     (inputValue) => {
       for (let i = 0; i < valueScrollXMaps.length; i++) {
-        if (valueScrollXMaps[i].value > inputValue) {
+        if (valueScrollXMaps[i].value >= inputValue) {
+          if (i === 0) {
+            return 0;
+          }
           const x = inputValue;
           const { value: x1, scrollX: y1 } = valueScrollXMaps[i - 1];
           const { value: x2, scrollX: y2 } = valueScrollXMaps[i];

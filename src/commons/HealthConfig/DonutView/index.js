@@ -61,9 +61,6 @@ const DonutView = memo(
     );
 
     useEffect(() => {
-      if (percentage === 0) {
-        return;
-      }
       setPercentage(percentage);
       animatedValue.addListener((v) => {
         if (circleRef?.current) {

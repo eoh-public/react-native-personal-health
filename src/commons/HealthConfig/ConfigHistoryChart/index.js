@@ -16,8 +16,8 @@ const getCategories = (startDate, length) => {
   const date = moment(startDate);
   const categories = [date.format('MMM D')];
   while (categories.length < length) {
-    categories.push(date.format('D'));
     date.add(1, 'days');
+    categories.push(date.format('D'));
   }
   return categories;
 };
@@ -64,7 +64,10 @@ const ConfigHistoryChart = memo(({ config }) => {
         dataSeries.push(groupedConfigData[date.format('YYYY-MM-DD')]);
         date.add(1, 'days');
       }
-      setChartData((state) => ({ ...state, data: dataSeries }));
+      setChartData({
+        data: dataSeries,
+        categories: getCategories(startDate, 7),
+      });
     }
   }, [startDate, endDate, config.id]);
 
