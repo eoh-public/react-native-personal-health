@@ -14,7 +14,7 @@ const HealthConfigItem = memo(({ item }) => {
   const { navigate } = useNavigation();
   const { textColor, borderColor } =
     item.value !== null
-      ? HEALTH_CONFIG_COLOR_SCHEME[item.text || 'null']
+      ? HEALTH_CONFIG_COLOR_SCHEME[item.color || 'null']
       : HEALTH_CONFIG_COLOR_SCHEME.null;
 
   const goToDetail = useCallback(() => {
@@ -42,7 +42,7 @@ const HealthConfigItem = memo(({ item }) => {
             </TouchableOpacity>
           </View>
           <Text type="Body" color={textColor}>
-            {item.value !== null ? t(`${item.text}`) : t('no_data')}
+            {item.value !== null ? item.text : t('no_data')}
           </Text>
         </View>
         <View style={styles.rowBottom}>

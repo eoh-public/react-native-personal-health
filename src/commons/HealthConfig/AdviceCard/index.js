@@ -9,9 +9,9 @@ import { HEALTH_CONFIG_COLOR_SCHEME } from '../../../configs/Constants';
 import AdviceBackground from '../../../../assets/images/advice-background.svg';
 
 const AdviceCard = memo(({ data }) => {
-  const { advices, text } = data;
+  const { advices, color } = data;
   const { borderColor } =
-    HEALTH_CONFIG_COLOR_SCHEME[text] || HEALTH_CONFIG_COLOR_SCHEME.null;
+    HEALTH_CONFIG_COLOR_SCHEME[color] || HEALTH_CONFIG_COLOR_SCHEME.null;
   return (
     <View style={[styles.container, { borderColor }]}>
       <View>
