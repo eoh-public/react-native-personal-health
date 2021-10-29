@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import renderer, { act } from 'react-test-renderer';
-import RowPersonalHealthDrawer from '../Row';
+import RowPersonalHealthDrawer from '../RowDrawer';
 import Route from '../../../../../utils/Route';
 import { PHContext } from '../../../../../context';
 import { mockSPStore } from '../../../../../context/mockStore';

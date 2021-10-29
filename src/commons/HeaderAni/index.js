@@ -6,7 +6,7 @@ import {
   View,
   Platform,
 } from 'react-native';
-import { Icon } from '@ant-design/react-native';
+import ArrowLeft from '../../../assets/images/arrow_back.svg';
 import { useNavigation } from '@react-navigation/native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
@@ -69,7 +69,7 @@ const HeaderAni = memo(
         />
         <View style={styles.header}>
           <TouchableOpacity style={styles.btnBack} onPress={onPressLeft}>
-            <Icon name={'left'} size={27} color={Colors.Gray9} />
+            <ArrowLeft />
           </TouchableOpacity>
           <View styles={styles.wrapRightComponent}>{rightComponent}</View>
         </View>

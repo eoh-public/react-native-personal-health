@@ -13,6 +13,6 @@ describe('Test BackDefault', () => {
     });
     const instance = tree.root;
     const touch = instance.findByType(TouchableOpacity);
-    expect(touch.props.style).toHaveLength(2);
+    expect(touch.props.style).toHaveLength(3);
   });
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import renderer, { act } from 'react-test-renderer';
 import ImageButton from '../index';
-import AddMemberIcon from '../../../../assets/images/Popover/Dashboard/AddMember.svg';
+import AddMemberIcon from '../../../../assets/images/Common/AddMember.svg';
 
 describe('Test ImageButton component', () => {
   let tree;

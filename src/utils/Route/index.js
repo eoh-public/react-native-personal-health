@@ -10,6 +10,10 @@ const Routes = {
   HealthInformation: 'HealthInformation',
   HealthDevices: 'HealthDevices',
   Reminder: 'Reminder',
+  PaymentMethod: 'PaymentMethod',
+  ProcessPayment: 'ProcessPayment',
+  AddCard: 'AddCard',
+  SelectPaymentMethod: 'SelectPaymentMethod',
   FindHospital: 'FindHospital',
   BookingDetail: 'BookingDetail',
 };

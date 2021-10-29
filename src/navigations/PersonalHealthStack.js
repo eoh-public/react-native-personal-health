@@ -17,8 +17,14 @@ import HealthInformation from '../screens/HealthInformation';
 import HealthDevices from '../screens/HealthDevices';
 import FindHospital from '../screens/FindHospital/FindHospital';
 import BookingDetail from '../screens/BookingDetail/BookingDetail';
+//payment
+import Payment from '../screens/Payment';
+import ProcessPayment from '../screens/PaymentCommon/ProcessPayment';
+import AddCreditCard from '../screens/Payment/AddCreditCard';
+import { SelectPaymentMethod } from '../screens/SelectPaymentMethod';
 
 import utils from './utils';
+import { t } from 'i18n-js';
 
 const Stack = createStackNavigator();
 
@@ -121,6 +127,26 @@ export const PersonalHealthStack = memo(() => {
         name={Routes.BookingDetail}
         component={BookingDetail}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={Routes.PaymentMethod}
+        component={Payment}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={Routes.ProcessPayment}
+        component={ProcessPayment}
+        options={{ title: t('process_payment') }}
+      />
+      <Stack.Screen
+        name={Routes.AddCard}
+        component={AddCreditCard}
+        options={{ title: t('add_card') }}
+      />
+      <Stack.Screen
+        name={Routes.SelectPaymentMethod}
+        component={SelectPaymentMethod}
+        options={{ title: t('select_payment_method') }}
       />
     </Stack.Navigator>
   );

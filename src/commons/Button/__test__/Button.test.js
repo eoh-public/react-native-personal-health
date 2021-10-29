@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import renderer, { act } from 'react-test-renderer';
 import Button from '../';
-import { SvgDirection } from '../../../../assets/images/PersonalHealth';
+import SvgDirection from '../../../../assets/images/Common/direction.svg';
 
 describe('Test button component', () => {
   let tree;

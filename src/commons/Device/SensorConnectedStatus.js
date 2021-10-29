@@ -4,7 +4,7 @@ import { t } from 'i18n-js';
 
 import { Colors } from '../../configs';
 import Text from '../../commons/Text';
-import Connect from '../../../assets/images/Device/Connect.svg';
+import Connect from '../../../assets/images/Common/Connect.svg';
 import { TESTID } from '../../configs/Constants';
 
 const SensorConnectedStatus = memo(({ txtSensor, timeLastUpdate }) => {

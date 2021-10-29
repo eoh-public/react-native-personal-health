@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer, { act } from 'react-test-renderer';
 import Alert from '../index';
+import { Modal } from 'react-native';
 
 describe('Test Alert', () => {
   let tree;
@@ -8,7 +9,9 @@ describe('Test Alert', () => {
     act(() => {
       tree = renderer.create(<Alert />);
     });
-    expect(tree.toJSON()).toMatchSnapshot();
+    const instance = tree.root;
+    const Modals = instance.findAllByType(Modal);
+    expect(Modals.length).toBe(1);
     Alert.setRef('_ref');
     expect(Alert.getRef()).toEqual('_ref');
     Alert.clearRef();

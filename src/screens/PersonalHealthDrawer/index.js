@@ -55,7 +55,7 @@ const PersonalHealthDrawer = memo(() => {
       },
       {
         id: '5',
-        route: null,
+        route: Routes.PaymentMethod,
         leftImage: <SvgPaymentMethod />,
         name: t('payment_method'),
       },
