@@ -3,7 +3,7 @@ import { Colors, Constants } from '../../../configs';
 
 const margin = 16;
 const widthItem = (Constants.width - margin * 2 - margin) / 2;
-const heightItem = (widthItem / 164) * 120;
+const heightItem = (widthItem / 164) * 140;
 
 export default StyleSheet.create({
   container: {

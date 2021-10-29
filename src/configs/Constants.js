@@ -43,34 +43,34 @@ export const DEEP_LINK = {
 };
 
 export const HEALTH_CONFIG_COLOR_SCHEME = {
-  [Colors.Primary]: {
+  Normal: {
     textColor: Colors.Primary,
     borderColor: Colors.Gray4,
     strokeColor: {
       stop1Color: '#D5FFCB',
       stop2Color: '#00979D',
     },
-    stickColor: Colors.Green11,
+    stickColor: '#61DDAA',
   },
-  [Colors.Red6]: {
+  High: {
     textColor: Colors.Red6,
     borderColor: Colors.Red6,
     strokeColor: {
       stop1Color: '#FFB24A',
       stop2Color: '#F14857',
     },
-    stickColor: Colors.Orange6,
+    stickColor: '#61DDAA',
   },
-  [Colors.Yellow6]: {
-    textColor: Colors.Yellow6,
-    borderColor: Colors.Yellow6,
+  Low: {
+    textColor: Colors.Primary,
+    borderColor: Colors.Purple6,
     strokeColor: {
-      stop1Color: Colors.Yellow6,
-      stop2Color: Colors.Yellow6,
+      stop1Color: '#7B61FF',
+      stop2Color: '#F14857',
     },
-    stickColor: Colors.Yellow6,
+    stickColor: '#61DDAA',
   },
-  'null': {
+  null: {
     textColor: Colors.Gray7,
     borderColor: Colors.Gray4,
     strokeColor: {

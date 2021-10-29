@@ -23,7 +23,7 @@ const DonutView = memo(
   ({ data, width = 360, size = 300, strokeWidth = 14 }) => {
     const { textColor, strokeColor, stickColor } =
       data.value !== null
-        ? HEALTH_CONFIG_COLOR_SCHEME[data.color || 'null']
+        ? HEALTH_CONFIG_COLOR_SCHEME[data.text || 'null']
         : HEALTH_CONFIG_COLOR_SCHEME.null;
 
     const { value, name } = data;
@@ -120,7 +120,7 @@ const DonutView = memo(
             textAnchor="middle"
             fontWeight="600"
           >
-            {data.value !== null ? data.text : t('no_data')}
+            {data.value !== null ? t(`${data.text}`) : t('no_data')}
           </Text>
           <Text
             fill={Colors.Gray9}

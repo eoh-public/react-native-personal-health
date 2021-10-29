@@ -25,7 +25,7 @@ const getCategories = (startDate, length) => {
 const ConfigHistoryChart = memo(({ config }) => {
   const { textColor } =
     config.value !== null
-      ? HEALTH_CONFIG_COLOR_SCHEME[config.color || 'null']
+      ? HEALTH_CONFIG_COLOR_SCHEME[config.text || 'null']
       : HEALTH_CONFIG_COLOR_SCHEME.null;
 
   const [startDate, setStartDate] = useState(moment().add(-4, 'days'));
