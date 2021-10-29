@@ -15,6 +15,7 @@ export class PHConfig {
   static stripePublishKey = PHDefaultConfig.stripePublishKey;
   static pusherAppKey = PHDefaultConfig.pusherAppKey;
   static pusherAppCluster = PHDefaultConfig.pusherAppCluster;
+  static iparamedApiToken = PHDefaultConfig.iparamedApiToken;
   static maxSeconds = PHDefaultConfig.maxSeconds;
 }
 

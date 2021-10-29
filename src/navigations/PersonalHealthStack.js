@@ -16,6 +16,7 @@ import Reminder from '../screens/Reminder/Reminder';
 import HealthInformation from '../screens/HealthInformation';
 import HealthDevices from '../screens/HealthDevices';
 import FindHospital from '../screens/FindHospital/FindHospital';
+import BookingDetail from '../screens/BookingDetail/BookingDetail';
 
 import utils from './utils';
 
@@ -114,6 +115,11 @@ export const PersonalHealthStack = memo(() => {
       <Stack.Screen
         name={Routes.FindHospital}
         component={FindHospital}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={Routes.BookingDetail}
+        component={BookingDetail}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

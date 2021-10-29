@@ -11,6 +11,7 @@ const Routes = {
   HealthDevices: 'HealthDevices',
   Reminder: 'Reminder',
   FindHospital: 'FindHospital',
+  BookingDetail: 'BookingDetail',
 };
 
 export default Routes;

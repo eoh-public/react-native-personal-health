@@ -1,10 +1,11 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import {
   View,
   Image,
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { IconOutline } from '@ant-design/icons-react-native';
 import { t } from 'i18n-js';
 
@@ -14,10 +15,20 @@ import styles from './styles/hospitalItemStyles';
 import { Colors, Images } from '../../configs';
 import { HOSPITAL } from '../../configs/Constants';
 import { formatMoney } from '../../utils/Utils';
+import Routes from '../../utils/Route';
 
 const HospitalItem = memo(({ item }) => {
+  const { navigate } = useNavigation();
+  const priceStr = formatMoney(HOSPITAL.price);
+
+  const onPress = useCallback(() => {
+    navigate(Routes.BookingDetail, {
+      hospitalId: item.id,
+    });
+  }, [navigate, item.id]);
+
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.wrap}>
         <View style={styles.wrapImage}>
           <Image source={Images.hospital} style={styles.image} />
@@ -38,7 +49,7 @@ const HospitalItem = memo(({ item }) => {
             {HOSPITAL.address}
           </Text>
           <Text type="H4" color={Colors.Gray9} bold>
-            {formatMoney(HOSPITAL.price)}
+            {priceStr}
           </Text>
         </View>
       </View>

@@ -36,6 +36,7 @@ const API = {
   },
   HOSPITAL: {
     LIST: () => 'https://api-stag.iparamed.com/hospitals/',
+    DETAIL: (id) => `https://api-stag.iparamed.com/hospitals/${id}/`,
   },
   BILLING: {
     LIST_PAYMENT_METHODS_BY_COUNTRY: (code) =>
