@@ -25,6 +25,7 @@ import { SelectPaymentMethod } from '../screens/SelectPaymentMethod';
 
 import utils from './utils';
 import { t } from 'i18n-js';
+import ReminderDetail from '../screens/ReminderDetail/ReminderDetail';
 
 const Stack = createStackNavigator();
 
@@ -76,11 +77,6 @@ export const PersonalHealthStack = memo(() => {
         ...screenOptionsAccountSetting,
       }}
     >
-      <Drawer.Screen
-        name={Routes.Reminder}
-        component={Reminder}
-        options={{ headerShown: false }}
-      />
       <Stack.Screen
         name={Routes.PersonalHealthMapDrawer}
         component={MapDrawer}
@@ -147,6 +143,16 @@ export const PersonalHealthStack = memo(() => {
         name={Routes.SelectPaymentMethod}
         component={SelectPaymentMethod}
         options={{ title: t('select_payment_method') }}
+      />
+      <Stack.Screen
+        name={Routes.Reminder}
+        component={Reminder}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={Routes.ReminderDetail}
+        component={ReminderDetail}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

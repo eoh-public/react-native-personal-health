@@ -10,6 +10,7 @@ const Routes = {
   HealthInformation: 'HealthInformation',
   HealthDevices: 'HealthDevices',
   Reminder: 'Reminder',
+  ReminderDetail: 'ReminderDetail',
   PaymentMethod: 'PaymentMethod',
   ProcessPayment: 'ProcessPayment',
   AddCard: 'AddCard',

@@ -4,7 +4,6 @@ import { Colors } from '../../../configs';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: Colors.White,
   },
   header: {
@@ -15,14 +14,13 @@ export default StyleSheet.create({
   },
   rowTitle: {
     marginTop: 32,
-    marginHorizontal: 16,
   },
-  scrollView: {
+  scroll: {
+    padding: 16,
     paddingBottom: 60,
   },
   tabHeaderContainer: {
     flexDirection: 'row',
-    marginHorizontal: 16,
   },
   tabItem: {
     paddingHorizontal: 16,
@@ -86,6 +84,9 @@ export default StyleSheet.create({
   },
   addNewText: {
     marginLeft: 10,
+    marginRight: 16,
+  },
+  plusIcon: {
     marginRight: 16,
   },
 });

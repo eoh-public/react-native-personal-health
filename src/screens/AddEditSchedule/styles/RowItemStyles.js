@@ -8,6 +8,8 @@ export default StyleSheet.create({
     marginBottom: 16,
     padding: 12,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: Colors.Gray4,
     backgroundColor: Colors.White,
     shadowColor: Colors.Shadow,
     shadowOffset: {

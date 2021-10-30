@@ -16,9 +16,10 @@ import { ReminderItem } from './ReminderItem';
 import { ReminderAddNew } from './ReminderAddNew';
 import { axiosGet } from '../../utils/Apis/axios';
 import { API } from '../../configs';
+import Routes from '../../utils/Route';
 
 const Reminder = memo(({ route }) => {
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
   useBlockBackAndroid();
 
   const [tabIndex] = useState(2);
@@ -28,8 +29,8 @@ const Reminder = memo(({ route }) => {
     usePopover();
 
   const onPressPlus = useCallback(() => {
-    Alert.alert(t('feature_under_development'));
-  }, []);
+    navigate(Routes.ReminderDetail, {});
+  }, [navigate]);
 
   const onPressUpdateData = useCallback(() => {
     Alert.alert(t('feature_under_development'));
@@ -58,16 +59,16 @@ const Reminder = memo(({ route }) => {
         hasBack
         goBack={goBack}
         rightComponent={
-          <TouchableOpacity onPress={onPressPlus}>
+          <TouchableOpacity onPress={onPressPlus} style={styles.plusIcon}>
             <IconOutline name="plus" size={24} />
           </TouchableOpacity>
         }
       />
-      <ScrollView contentContainerStyle={styles.scrollview}>
+      <ScrollView contentContainerStyle={styles.scroll}>
         <RowTitleButton
           style={styles.rowTitle}
           title={t('reminder')}
-          titleType="H3"
+          titleType="H2"
           titleBold
         />
         <ScrollView contentContainerStyle={styles.tabHeaderContainer}>
